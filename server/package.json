@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "db:generate": "drizzle-kit generate:pg",
     "dev": "NODE_ENV=development nodemon",
     "format": "prettier --write \"./src/**/*.{js,ts,json,md}\"",
     "lint": "eslint --fix \"./src/**/*.{js,ts,json}\"",

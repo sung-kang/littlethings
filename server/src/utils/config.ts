@@ -10,4 +10,4 @@ const config = {
   SESSION_SECRET_KEY: process.env.SESSION_SECRET_KEY ?? 'NotSoSecretSecretKey',
 };
 
-export { config };
+export default config;

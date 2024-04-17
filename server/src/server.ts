@@ -2,7 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
 import router from './modules';
-import { config } from './utils/config';
+import config from './utils/config';
+import migrateDatabase from './db/migrate';
 import { pool } from './db';
 import { Server } from 'http';
 
@@ -34,6 +35,8 @@ const startServer = async () => {
   // app.all('*', (req: Request, res: Response, next: NextFunction) => {
   // next(new NotFoundError(`Cannot find ${req.originalUrl}`));
   // });
+
+  await migrateDatabase();
 
   server = app.listen(config.PORT as number, config.HOSTNAME, () => {
     console.log(
