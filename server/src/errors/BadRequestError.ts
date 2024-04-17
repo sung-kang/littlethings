@@ -1,4 +1,4 @@
-import { CustomError, type CustomErrorData } from './CustomError';
+import { CustomError, CustomErrorData } from './CustomError';
 
 class BadRequestError extends CustomError {
   readonly statusCode: number;

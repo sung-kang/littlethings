@@ -1,3 +1,4 @@
 import BadRequestError from './BadRequestError';
+import ValidationRequestError from './ValidationRequestError';
 
-export { BadRequestError };
+export { BadRequestError, ValidationRequestError };
