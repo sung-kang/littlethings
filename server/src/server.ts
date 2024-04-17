@@ -6,6 +6,7 @@ import config from './utils/config';
 import migrateDatabase from './db/migrate';
 import { pool } from './db';
 import { Server } from 'http';
+import customErrorMiddleware from './errors/customErrorMiddleware';
 
 let server: Server | null = null;
 
@@ -37,6 +38,9 @@ const startServer = async () => {
   // });
 
   await migrateDatabase();
+
+  // custom error middleware
+  app.use(customErrorMiddleware);
 
   server = app.listen(config.PORT as number, config.HOSTNAME, () => {
     console.log(
