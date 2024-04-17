@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
+import { Server } from 'http';
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
 import router from './modules';
 import config from './utils/config';
 import migrateDatabase from './db/migrate';
 import { pool } from './db';
-import { Server } from 'http';
 import customErrorMiddleware from './errors/customErrorMiddleware';
 
 let server: Server | null = null;
@@ -17,6 +19,25 @@ const startServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
+
+  const pgSession = connectPgSimple(session);
+  app.use(
+    session({
+      store: new pgSession({
+        pool: pool,
+        createTableIfMissing: true,
+      }),
+      name: 'littlethings_sid',
+      secret: config.SESSION_SECRET_KEY as string,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        secure: config.ENV === 'production',
+        maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
+      },
+    })
+  );
 
   // API main router
   app.use('/api/v1', router);
