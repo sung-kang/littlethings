@@ -49,6 +49,7 @@ const deleteLittleThingPost = async (userId: string, id: string) => {
 };
 
 /**
+ * is it worth doing two database hits, is that efficient? or does performance not matter for this authorization concern
  *
  * this is the old delete, it was able to succeed if the user_id didn't match, like it will return the success json message in Controllers
  * HOWEVER,it wouldn't delete anything as there is no single match, and so if the deletedPost array is length of 0
