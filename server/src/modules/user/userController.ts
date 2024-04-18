@@ -9,4 +9,4 @@ const registerUser = tryCatch(async (req: Request, res: Response) => {
   res.status(201).json({ user });
 });
 
-export default registerUser;
+export { registerUser };
