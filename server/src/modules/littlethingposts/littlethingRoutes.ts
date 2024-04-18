@@ -1,6 +1,6 @@
 import express from 'express';
 import verifyAuthentication from '../../utils/verifyAuthentication';
-import { createPost, getAllPosts } from './littlethingControllers';
+import { createPost, getAllPosts, deletePost } from './littlethingControllers';
 
 const router = express.Router();
 
@@ -28,6 +28,6 @@ router.post('/add/newpost', createPost);
  * Access:        Private
  */
 
-router.delete('/delete/posts');
+router.delete('/delete/posts/:id', deletePost);
 
 export default router;
