@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1713396396854,
-      "tag": "0000_premium_karma",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1713412692161,
-      "tag": "0001_free_johnny_storm",
+      "when": 1713419230738,
+      "tag": "0000_regular_captain_flint",
       "breakpoints": true
     }
   ]

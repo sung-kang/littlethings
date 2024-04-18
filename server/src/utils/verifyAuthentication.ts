@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UnauthorizedError } from '../../errors';
+import { UnauthorizedError } from '../errors';
 
 const verifyAuthentication = (
   req: Request,
@@ -14,4 +14,4 @@ const verifyAuthentication = (
   next();
 };
 
-export { verifyAuthentication };
+export default verifyAuthentication;

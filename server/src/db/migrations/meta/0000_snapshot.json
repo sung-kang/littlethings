@@ -1,9 +1,84 @@
 {
-  "id": "68243335-95d5-4fb9-9eb7-ba915e42a3c0",
+  "id": "d340227c-e82a-4045-8661-dea93d26d95f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
+    "littlethings": {
+      "name": "littlethings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "littlething": {
+          "name": "littlething",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "frequency": {
+          "name": "frequency",
+          "type": "frequency",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "occurence": {
+          "name": "occurence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "littlethings_user_id_users_id_fk": {
+          "name": "littlethings_user_id_users_id_fk",
+          "tableFrom": "littlethings",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "users": {
       "name": "users",
       "schema": "",
@@ -68,7 +143,17 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "frequency": {
+      "name": "frequency",
+      "values": {
+        "Daily": "Daily",
+        "Weekly": "Weekly",
+        "Monthly": "Monthly",
+        "Yearly": "Yearly"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},
