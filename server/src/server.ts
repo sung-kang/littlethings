@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
 import { Server } from 'http';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
 import router from './modules';
@@ -9,6 +11,7 @@ import config from './utils/config';
 import migrateDatabase from './db/migrate';
 import { pool } from './db';
 import customErrorMiddleware from './errors/customErrorMiddleware';
+import { NotFoundError } from './errors';
 
 let server: Server | null = null;
 
@@ -16,9 +19,19 @@ const startServer = async () => {
   const app = express();
 
   // middlewares
+  app.use(helmet());
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // 100 requests per 15 minutes
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: `Too many requests from this IP, please try again after 10 minutes`,
+    })
+  );
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(cors());
 
   const pgSession = connectPgSimple(session);
   app.use(
@@ -54,9 +67,9 @@ const startServer = async () => {
   }
 
   // 404 not found
-  // app.all('*', (req: Request, res: Response, next: NextFunction) => {
-  // next(new NotFoundError(`Cannot find ${req.originalUrl}`));
-  // });
+  app.all('*', (req: Request, _res: Response, next: NextFunction) => {
+    next(new NotFoundError(`Cannot find ${req.originalUrl}`));
+  });
 
   await migrateDatabase();
 
