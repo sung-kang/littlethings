@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import tryCatch from '../../utils/tryCatch';
-import { login } from './authService';
+import { login } from './authServices';
 import { InternalError } from '../../errors';
 
 const loginUser = tryCatch(async (req: Request, res: Response) => {
   const user = await login(req.body);
   req.session.userId = user;
 
-  res.status(200).json({ user });
+  res.status(200).json({ message: user });
 });
 
 const logoutUser = tryCatch(async (req: Request, res: Response) => {

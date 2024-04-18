@@ -25,7 +25,7 @@ const createUser = async (userData: InferInsertModel<typeof users>) => {
     .values({ firstName, lastName, email, password: hashedPassword })
     .returning({ id: users.id });
 
-  return user[0];
+  return user[0].id;
 };
 
 const deleteUserAccount = async (userId: string, password: string) => {

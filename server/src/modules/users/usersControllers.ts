@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import tryCatch from '../../utils/tryCatch';
-import { createUser, deleteUserAccount } from './userService';
+import { createUser, deleteUserAccount } from './usersServices';
 import { InternalError } from '../../errors';
 
 const deleteUser = tryCatch(async (req: Request, res: Response) => {
@@ -20,9 +20,9 @@ const deleteUser = tryCatch(async (req: Request, res: Response) => {
 
 const registerUser = tryCatch(async (req: Request, res: Response) => {
   const user = await createUser(req.body);
-  req.session.userId = user.id;
+  req.session.userId = user;
 
-  res.status(201).json({ user });
+  res.status(201).json({ message: user });
 });
 
 export { deleteUser, registerUser };
