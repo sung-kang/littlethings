@@ -7,7 +7,7 @@ const verifyAuthentication = (
   next: NextFunction
 ) => {
   if (!req.session || !req.session.userId) {
-    res.clearCookie('mastermind_sid');
+    res.clearCookie('littlethings_sid');
     throw new UnauthorizedError();
   }
 
