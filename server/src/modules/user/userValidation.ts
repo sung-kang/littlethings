@@ -1,5 +1,11 @@
 import { body } from 'express-validator';
 
+const deleteUserValidation = [
+  body('password')
+    .isLength({ min: 6, max: 255 })
+    .withMessage('Password must be between 6 and 255 characters long'),
+];
+
 const registerValidation = [
   body('firstName')
     .trim()
@@ -36,4 +42,4 @@ const registerValidation = [
   }),
 ];
 
-export { registerValidation };
+export { deleteUserValidation, registerValidation };

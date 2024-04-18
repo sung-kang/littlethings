@@ -1,8 +1,12 @@
 import bcrypt from 'bcryptjs';
-import { InferInsertModel } from 'drizzle-orm';
+import { InferInsertModel, eq } from 'drizzle-orm';
 import { db } from '../../db/index';
 import { users } from '../../db/schema';
-import { BadRequestError } from '../../errors';
+import {
+  BadRequestError,
+  InternalError,
+  UnauthorizedError,
+} from '../../errors';
 
 const createUser = async (userData: InferInsertModel<typeof users>) => {
   const { firstName, lastName, email, password } = userData;
@@ -24,4 +28,20 @@ const createUser = async (userData: InferInsertModel<typeof users>) => {
   return user[0];
 };
 
-export { createUser };
+const deleteUserAccount = async (userId: string, password: string) => {
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.id, userId),
+  });
+
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new UnauthorizedError('Invalid credentials');
+  }
+
+  const deletedUser = await db.delete(users).where(eq(users.id, userId));
+
+  if (deletedUser.rowCount === 0) {
+    throw new InternalError();
+  }
+};
+
+export { createUser, deleteUserAccount };
