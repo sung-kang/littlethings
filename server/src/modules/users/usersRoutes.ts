@@ -1,7 +1,7 @@
 import express from 'express';
 import validate from '../../utils/validate';
-import { registerUser, deleteUser } from './userController';
-import { deleteUserValidation, registerValidation } from './userValidation';
+import { registerUser, deleteUser } from './usersControllers';
+import { deleteUserValidation, registerValidation } from './usersValidations';
 import verifyAuthentication from '../../utils/verifyAuthentication';
 
 const router = express.Router();
