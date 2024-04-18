@@ -1,7 +1,7 @@
 import { db } from '../../db/index';
 import { InferInsertModel, eq, and } from 'drizzle-orm';
 import { littlethings } from '../../db/schema';
-import { InternalError, UnauthorizedError } from '../../errors';
+import { InternalError, NotFoundError, UnauthorizedError } from '../../errors';
 
 const createLittleThings = async (
   userId: string,
@@ -28,24 +28,21 @@ const getAllLittleThingsByUserId = async (userId: string) => {
 };
 
 const deleteLittleThingsById = async (userId: string, id: string) => {
-  const ownerVerification = await db.query.littlethings.findFirst({
-    where: (littlethings, { eq, and }) =>
-      and(eq(littlethings.user_id, userId), eq(littlethings.id, id)),
+  const checkingIfPostExists = await db.query.littlethings.findFirst({
+    where: (littlethings, { eq }) => eq(littlethings.id, id),
   });
 
-  // finding post by post ID and checking userId against userId in found post data
-  // and handling post not found error and/or unauthroized error
-  // vs
-  // just doing generic UnauthorizedError
+  if (!checkingIfPostExists) {
+    throw new NotFoundError();
+  }
 
-  if (!ownerVerification) {
+  if (checkingIfPostExists.user_id !== userId) {
     throw new UnauthorizedError('Not authorized to delete this post', 403);
   }
 
   const deletedPostId = await db
     .delete(littlethings)
-    .where(and(eq(littlethings.id, id), eq(littlethings.user_id, userId)))
-    // .returning({ userId: littlethings.user_id });
+    .where(and(eq(littlethings.id, id)))
     .returning({ id: littlethings.id });
 
   return deletedPostId;
