@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UnauthorizedError } from '../../errors';
+import { UnauthorizedError } from '../errors';
 
 const verifyAuthentication = (
   req: Request,
@@ -7,11 +7,11 @@ const verifyAuthentication = (
   next: NextFunction
 ) => {
   if (!req.session || !req.session.userId) {
-    res.clearCookie('mastermind_sid');
+    res.clearCookie('littlethings_sid');
     throw new UnauthorizedError();
   }
 
   next();
 };
 
-export { verifyAuthentication };
+export default verifyAuthentication;
