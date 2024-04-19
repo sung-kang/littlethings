@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -51,6 +53,11 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        'blue-glass': '#e0f2fe80', // semi-transparent blue for the glass effect
+      },
+      backdropFilter: {
+        none: 'none',
+        blur: 'blur(20px)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -73,5 +80,15 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.backdrop-blur': {
+          backdropFilter: 'blur(10px)',
+        },
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    }),
+  ],
 };
