@@ -20,9 +20,11 @@ const deleteUser = tryCatch(async (req: Request, res: Response) => {
 
 const registerUser = tryCatch(async (req: Request, res: Response) => {
   const user = await createUser(req.body);
-  req.session.userId = user;
+  req.session.userId = user.userId;
 
-  res.status(201).json({ message: user });
+  res
+    .status(201)
+    .json({ message: { firstName: user.firstName, lastName: user.lastName } });
 });
 
 export { deleteUser, registerUser };

@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import useAuthContext from '@/hooks/useAuthContext';
 
 type LoginFormFields = {
   email: string;
@@ -8,6 +9,7 @@ type LoginFormFields = {
 };
 
 const Login = () => {
+  const { error, isLoading, login } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -15,24 +17,10 @@ const Login = () => {
   } = useForm<LoginFormFields>();
 
   const onSubmit = async (data: LoginFormFields) => {
-    console.log(data);
     try {
-      const response = await fetch('/api/v1/auth/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const userid = await response.json();
-      console.log('userid', userid);
-      if (!response.ok) {
-        throw new Error('Failed to get repsonse');
-      }
+      await login(data.email, data.password);
     } catch (error) {
-      console.log('Login Failed', error);
+      console.error(error);
     }
   };
 
@@ -83,6 +71,12 @@ const Login = () => {
         )}
 
         {/* server side error */}
+        {error?.map((err, idx) => (
+          <div key={idx} className="mt-1 text-red-500 text-xs">
+            {err.message}
+          </div>
+        ))}
+
         <Button className=" text-green-500 w-full" variant="outline">
           Log In
         </Button>

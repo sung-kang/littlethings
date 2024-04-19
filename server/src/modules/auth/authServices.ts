@@ -3,6 +3,21 @@ import { db } from '../../db/index';
 import { UnauthorizedError } from '../../errors';
 import { loginData } from './authTypes';
 
+const findUserById = async (userId: string) => {
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.id, userId),
+  });
+
+  if (!user) {
+    throw new UnauthorizedError();
+  }
+
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+};
+
 const login = async (userData: loginData) => {
   const { email, password } = userData;
 
@@ -14,7 +29,11 @@ const login = async (userData: loginData) => {
     throw new UnauthorizedError('Invalid email or password');
   }
 
-  return user.id;
+  return {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    userId: user.id,
+  };
 };
 
-export { login };
+export { findUserById, login };
