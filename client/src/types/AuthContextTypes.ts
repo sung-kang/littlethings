@@ -10,15 +10,15 @@ interface AuthContextType {
   user: AuthContextState;
   isLoading: boolean;
   error: ApiError[] | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (
+  loginUser: (email: string, password: string) => Promise<void>;
+  registerUser: (
     firstName: string,
     lastName: string,
     email: string,
     password: string,
     confirmPassword: string
   ) => Promise<void>;
-  logout: () => Promise<void>;
+  logoutUser: () => Promise<void>;
 }
 
 export type { AuthContextState, AuthContextType };

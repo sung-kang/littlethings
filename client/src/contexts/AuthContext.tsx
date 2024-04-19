@@ -12,9 +12,9 @@ const AuthContext = createContext<AuthContextType>({
   user: defaultUserContext,
   isLoading: false,
   error: null,
-  login: async () => {},
-  register: async () => {},
-  logout: async () => {},
+  loginUser: async () => {},
+  registerUser: async () => {},
+  logoutUser: async () => {},
 });
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -22,7 +22,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<ApiError[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const login = async (email: string, password: string) => {
+  const loginUser = async (email: string, password: string) => {
     setError(null);
     setIsLoading(true);
 
@@ -51,7 +51,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const register = async (
+  const registerUser = async (
     firstName: string,
     lastName: string,
     email: string,
@@ -93,7 +93,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const logout = async () => {
+  const logoutUser = async () => {
     setError(null);
     setIsLoading(true);
 
@@ -151,7 +151,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, error, isLoading, login, register, logout }}
+      value={{ user, error, isLoading, loginUser, registerUser, logoutUser }}
     >
       {children}
     </AuthContext.Provider>
