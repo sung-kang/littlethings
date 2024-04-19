@@ -11,7 +11,7 @@ type LoginFormFields = {
 };
 
 const Login = () => {
-  const { error, isLoading, login } = useAuthContext();
+  const { error, isLoading, loginUser } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -20,8 +20,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: LoginFormFields) => {
+    const { email, password } = data;
+
     try {
-      await login(data.email, data.password);
+      await loginUser(email, password);
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +75,7 @@ const Login = () => {
                 placeholder="Password"
                 className="w-80 h-10"
                 {...register('password', {
-                  required: 'Your password or email is incorrect',
+                  required: 'Please enter your password',
                   minLength: {
                     value: 6,
                     message: 'Password must be at least 6 characters',
@@ -105,6 +107,7 @@ const Login = () => {
                 Log In
               </Button>
             </form>
+
             <Button
               className="text-[#aaf0c1] w-full h-10"
               variant="default"
