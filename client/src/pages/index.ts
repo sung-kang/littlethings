@@ -1,6 +1,6 @@
-import ErrorPage from './ErrorPage';
-import HomePage from './HomePage';
-import Login from './Login';
-import Register from './Register';
+import ErrorPage from '@/pages/ErrorPage';
+import HomePage from '@/pages/HomePage';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
 
 export { ErrorPage, HomePage, Login, Register };
