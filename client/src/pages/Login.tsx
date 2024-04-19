@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import splash from '/Learning-bro.svg';
 import useAuthContext from '@/hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 type LoginFormFields = {
   email: string;
@@ -16,6 +17,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormFields>();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginFormFields) => {
     try {
@@ -88,11 +90,11 @@ const Login = () => {
                 </p>
               )}
 
-              {error?.map((err, idx) => (
+              {/* {error?.map((err, idx) => (
                 <div key={idx} className="mt-1 text-red-500 text-xs">
                   {err.message}
                 </div>
-              ))}
+              ))} */}
 
               <Button
                 type="submit"
@@ -103,7 +105,11 @@ const Login = () => {
                 Log In
               </Button>
             </form>
-            <Button className="text-[#aaf0c1] w-full h-10" variant="default">
+            <Button
+              className="text-[#aaf0c1] w-full h-10"
+              variant="default"
+              onClick={() => navigate('/register')}
+            >
               Create Account
             </Button>
           </div>

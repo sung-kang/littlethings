@@ -1,28 +1,32 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ErrorPage, Homepage, Login, Register } from '@/pages';
+import { ErrorPage, HomePage, Login, Register } from '@/pages';
+import ProtectedRoutes from '@/utils/ProtectedRoutes';
+import AuthRedirect from '@/utils/AuthRedirect';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Login />,
+    element: <AuthRedirect />,
     errorElement: <ErrorPage />,
-
-    // children: [
-    //   {
-    //     path: '/',
-    //     element: <ProtectedRoutes />,
-    //     children: [
-    //       {
-    //         path: 'homepage',
-    //         element: <HomePage />,
-    //       },
-    //     ],
-    //   },
-    // ],
+    children: [
+      {
+        path: '/',
+        element: <Login />,
+        index: true,
+      },
+      {
+        path: 'register',
+        element: <Register />,
+      },
+    ],
   },
   {
-    path: 'register',
-    element: <Register />,
+    element: <ProtectedRoutes />,
+    children: [
+      {
+        path: 'homepage',
+        element: <HomePage />,
+      },
+    ],
   },
 ]);
 

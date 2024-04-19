@@ -1,5 +1,9 @@
+import useAuthContext from '@/hooks/useAuthContext';
+
 const HomePage = () => {
-  return <div>HOME PAGE</div>;
+  const { user } = useAuthContext();
+
+  return <div>Welcome {user.lastName}</div>;
 };
 
 export default HomePage;

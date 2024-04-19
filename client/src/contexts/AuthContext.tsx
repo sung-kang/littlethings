@@ -37,11 +37,10 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       const userData = await response.json();
-
       response.ok
         ? setUser({
-            firstName: userData.firstName,
-            lastName: userData.lasttName,
+            firstName: userData.message.firstName,
+            lastName: userData.message.lastName,
             isAuthenticated: true,
           })
         : setError(userData.errors);
@@ -82,8 +81,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
       response.ok
         ? setUser({
-            firstName: userData.firstName,
-            lastName: userData.lasttName,
+            firstName: userData.message.firstName,
+            lastName: userData.message.lastName,
             isAuthenticated: true,
           })
         : setError(userData.errors);
@@ -131,8 +130,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (response.ok) {
         setUser({
-          firstName: userData.firstName,
-          lastName: userData.lasttName,
+          firstName: userData.message.firstName,
+          lastName: userData.message.lastName,
           isAuthenticated: true,
         });
       } else {
@@ -147,7 +146,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    verifyAuthentication;
+    verifyAuthentication();
   }, []);
 
   return (
