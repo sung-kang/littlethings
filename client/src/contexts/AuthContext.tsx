@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { AuthContextState, AuthContextType } from '@/types/AuthContextTypes';
 import { ApiError } from '@/types/Common';
 
@@ -159,4 +159,4 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AuthContextProvider;
+export { AuthContext, AuthContextProvider };
