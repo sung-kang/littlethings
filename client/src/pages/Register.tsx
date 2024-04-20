@@ -174,7 +174,7 @@ const Register = () => {
               variant="default"
               onClick={() => navigate('/')}
             >
-              Log In
+              Already Have An Account
             </Button>
           </div>
         </div>
