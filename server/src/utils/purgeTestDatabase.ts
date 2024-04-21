@@ -15,8 +15,8 @@ const purgeTestDatabase = async () => {
       'Do not call this function without providing valid test database connection string.'
     );
   }
-  await db.delete(users);
   await db.delete(littlethings);
+  await db.delete(users);
   await db.execute(sql`TRUNCATE TABLE session;`);
 };
 
