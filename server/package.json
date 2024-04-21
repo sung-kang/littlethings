@@ -10,7 +10,7 @@
     "format": "prettier --write \"./src/**/*.{js,ts,json,md}\"",
     "lint": "eslint --fix \"./src/**/*.{js,ts,json}\"",
     "start": "cross-env NODE_ENV=production node dist/index.js/",
-    "test:e2e": "npm run db:generate && cross-env NODE_ENV=test jest --detectOpenHandles"
+    "test:e2e": "npm run db:generate && cross-env NODE_ENV=test jest --verbose --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
