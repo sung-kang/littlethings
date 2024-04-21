@@ -32,15 +32,15 @@ const updateLittleThingsPostById = async (
   id: string,
   littlethingsData: InferInsertModel<typeof littlethings>
 ) => {
-  const checkingIfPostExists = await db.query.littlethings.findFirst({
+  const postExists = await db.query.littlethings.findFirst({
     where: (littlethings, { eq }) => eq(littlethings.id, id),
   });
 
-  if (!checkingIfPostExists) {
+  if (!postExists) {
     throw new NotFoundError();
   }
 
-  if (checkingIfPostExists.user_id !== userId) {
+  if (postExists.user_id !== userId) {
     throw new UnauthorizedError('Not authorized to delete this post', 403);
   }
 

@@ -1,18 +1,16 @@
 import express from 'express';
+import validate from '../../utils/validate';
 import verifyAuthentication from '../../utils/verifyAuthentication';
+import {
+  createPostValidation,
+  deletePostValidation,
+} from './littlethingsValidations';
 import {
   createPost,
   getAllPosts,
   deletePost,
   updatePosts,
 } from './littlethingsControllers';
-
-import validate from '../../utils/validate';
-import {
-  createPostValidation,
-  deletePostValidation,
-} from './littlethingsValidations';
-import verifyAuthentication from '../../utils/verifyAuthentication';
 
 const router = express.Router();
 
