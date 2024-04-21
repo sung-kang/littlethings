@@ -59,8 +59,12 @@ const HomePage = () => {
   };
 
   const createPostHandler = async (postData: Post) => {
-    await createPost(postData);
-    setPosts((posts) => [...posts, postData]);
+    if (frequency === undefined) {
+      console.error('Frequency is undefined');
+      return;
+    }
+    const data = await createPost(postData, frequency);
+    setPosts((posts) => [...posts, { ...data.message, frequency }]);
   };
 
   const getPostsHandler = async () => {
