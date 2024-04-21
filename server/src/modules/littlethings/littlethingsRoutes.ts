@@ -7,6 +7,13 @@ import {
   updatePosts,
 } from './littlethingsControllers';
 
+import validate from '../../utils/validate';
+import {
+  createPostValidation,
+  deletePostValidation,
+} from './littlethingsValidations';
+import verifyAuthentication from '../../utils/verifyAuthentication';
+
 const router = express.Router();
 
 router.use(verifyAuthentication);
@@ -23,7 +30,7 @@ router.get('/get-all-posts', getAllPosts);
  * Description:   Creates a new post for the user
  * Access:        Private
  */
-router.post('/create-post', createPost);
+router.post('/create-post', validate(createPostValidation), createPost);
 
 /**
  * Route:         POST /api/v1/littlethings/update-post
@@ -37,6 +44,6 @@ router.post('/update-post', updatePosts);
  * Description:   Deletes a post created by the user by littlethings (post) ID
  * Access:        Private
  */
-router.delete('/:id', deletePost);
+router.delete('/:id', validate(deletePostValidation), deletePost);
 
 export default router;

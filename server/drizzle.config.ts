@@ -6,7 +6,10 @@ export default defineConfig({
   out: './src/db/migrations',
   driver: 'pg',
   dbCredentials: {
-    connectionString: config.POSTGRES_CONNECTION_STRING as string,
+    connectionString:
+      config.ENV === 'test'
+        ? (config.POSTGRES_TEST_CONNECTION_STRING as string)
+        : (config.POSTGRES_CONNECTION_STRING as string),
   },
   verbose: true,
   strict: true,

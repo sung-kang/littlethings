@@ -22,6 +22,7 @@ const loginUser = tryCatch(async (req: Request, res: Response) => {
 
 const logoutUser = tryCatch(async (req: Request, res: Response) => {
   req.session.destroy((error) => {
+    /* istanbul ignore next */
     if (error) {
       throw new InternalError('Something went wrong');
     }
