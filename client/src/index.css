@@ -74,3 +74,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+.wiggle-animation {
+  animation: wiggle 0.25s ease-in-out infinite;
+}

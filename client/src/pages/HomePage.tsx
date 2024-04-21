@@ -166,7 +166,10 @@ const HomePage = () => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="flex flex-col justify-center items-center  bg-white/30 border border-white rounded-lg p-10 my-5 shadow-lg backdrop-blur-md hover:backdrop-blur-lg transition duration-300 ease-in-out"
+              className={clsx(
+                'flex flex-col justify-center items-center bg-white/30 border border-white rounded-lg p-10 my-5 shadow-lg backdrop-blur-md hover:backdrop-blur-lg transition duration-300 ease-in-out',
+                { 'wiggle-animation': deletable }
+              )}
             >
               <div>{post.littlething}</div>
               <div>{post.description}</div>
