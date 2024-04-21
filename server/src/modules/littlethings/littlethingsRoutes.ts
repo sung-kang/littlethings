@@ -1,6 +1,13 @@
 import express from 'express';
+import verifyAuthentication from '../../utils/verifyAuthentication';
+import {
+  createPost,
+  getAllPosts,
+  deletePost,
+  updatePosts,
+} from './littlethingsControllers';
+
 import validate from '../../utils/validate';
-import { createPost, getAllPosts, deletePost } from './littlethingsControllers';
 import {
   createPostValidation,
   deletePostValidation,
@@ -24,6 +31,13 @@ router.get('/get-all-posts', getAllPosts);
  * Access:        Private
  */
 router.post('/create-post', validate(createPostValidation), createPost);
+
+/**
+ * Route:         POST /api/v1/littlethings/update-post
+ * Description:   updates an existing post for the user
+ * Access:        Private
+ */
+router.post('/update-post', updatePosts);
 
 /**
  * Route:         DELETE /api/v1/littlethings/:id

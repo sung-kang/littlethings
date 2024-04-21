@@ -27,6 +27,36 @@ const getAllLittleThingsByUserId = async (userId: string) => {
   return dataPosts;
 };
 
+const updateLittleThingsPostById = async (
+  userId: string,
+  id: string,
+  littlethingsData: InferInsertModel<typeof littlethings>
+) => {
+  const checkingIfPostExists = await db.query.littlethings.findFirst({
+    where: (littlethings, { eq }) => eq(littlethings.id, id),
+  });
+
+  if (!checkingIfPostExists) {
+    throw new NotFoundError();
+  }
+
+  if (checkingIfPostExists.user_id !== userId) {
+    throw new UnauthorizedError('Not authorized to delete this post', 403);
+  }
+
+  const updatePostData = await db
+    .update(littlethings)
+    .set({
+      description: littlethingsData.description,
+      littlething: littlethingsData.littlething,
+      occurence: littlethingsData.occurence,
+      frequency: littlethingsData.frequency,
+    })
+    .where(eq(littlethings.id, id));
+
+  return updatePostData;
+};
+
 const deleteLittleThingsById = async (userId: string, id: string) => {
   const checkingIfPostExists = await db.query.littlethings.findFirst({
     where: (littlethings, { eq }) => eq(littlethings.id, id),
@@ -51,5 +81,6 @@ const deleteLittleThingsById = async (userId: string, id: string) => {
 export {
   createLittleThings,
   getAllLittleThingsByUserId,
+  updateLittleThingsPostById,
   deleteLittleThingsById,
 };
