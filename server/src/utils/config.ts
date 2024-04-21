@@ -7,6 +7,8 @@ const config = {
   HOSTNAME: process.env.HOSTNAME ?? '0.0.0.0',
   POSTGRES_CONNECTION_STRING:
     process.env.POSTGRES_CONNECTION_STRING ?? undefined,
+  POSTGRES_TEST_CONNECTION_STRING:
+    process.env.POSTGRES_TEST_CONNECTION_STRING ?? undefined,
   SESSION_SECRET_KEY: process.env.SESSION_SECRET_KEY ?? 'NotSoSecretSecretKey',
 };
 

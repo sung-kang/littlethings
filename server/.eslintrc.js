@@ -8,8 +8,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:jest/recommended',
   ],
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'jest'],
   ignorePatterns: [
     'node_modules',
     'dist',
@@ -25,6 +26,12 @@ module.exports = {
       files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
+      },
+    },
+    {
+      files: ['__tests__/**/*.{js,jsx,ts,tsx}'],
+      env: {
+        jest: true,
       },
     },
   ],

@@ -47,6 +47,7 @@ const deleteUserAccount = async (userId: string, password: string) => {
 
   const deletedUser = await db.delete(users).where(eq(users.id, userId));
 
+  /* istanbul ignore next */
   if (deletedUser.rowCount === 0) {
     throw new InternalError();
   }
