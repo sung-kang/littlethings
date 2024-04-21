@@ -32,7 +32,7 @@ export const littlethings = pgTable('littlethings', {
     .references(() => users.id),
   description: text('description').notNull(),
   littlething: text('littlething').notNull(),
-  frequency: frequencyEnum('frequency'),
+  frequency: frequencyEnum('frequency').notNull(),
   occurence: integer('occurence').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
