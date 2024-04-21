@@ -6,6 +6,7 @@ import {
   updateLittleThingsPostById,
   deleteLittleThingsById,
 } from './littlethingsServices';
+import { BadRequestError } from '../../errors';
 
 const getAllPosts = tryCatch(async (req: Request, res: Response) => {
   const postData = await getAllLittleThingsByUserId(req.session.userId!);
@@ -13,7 +14,17 @@ const getAllPosts = tryCatch(async (req: Request, res: Response) => {
   res.status(200).json({ message: postData });
 });
 
-const updatePosts = tryCatch(async (req: Request, res: Response) => {
+const createPost = tryCatch(async (req: Request, res: Response) => {
+  const newPost = await createLittleThings(req.session.userId!, req.body);
+
+  res.status(201).json({ message: newPost });
+});
+
+const updatePost = tryCatch(async (req: Request, res: Response) => {
+  if (!Object.keys(req.body).length) {
+    throw new BadRequestError('Must provide at least 1 field to update');
+  }
+
   const updatedData = await updateLittleThingsPostById(
     req.session.userId!,
     req.params.id,
@@ -21,12 +32,6 @@ const updatePosts = tryCatch(async (req: Request, res: Response) => {
   );
 
   res.status(200).json({ message: updatedData });
-});
-
-const createPost = tryCatch(async (req: Request, res: Response) => {
-  const newPost = await createLittleThings(req.session.userId!, req.body);
-
-  res.status(201).json({ message: newPost });
 });
 
 const deletePost = tryCatch(async (req: Request, res: Response) => {
@@ -38,4 +43,4 @@ const deletePost = tryCatch(async (req: Request, res: Response) => {
   res.status(200).json({ message: deletedPostId });
 });
 
-export { createPost, getAllPosts, updatePosts, deletePost };
+export { getAllPosts, createPost, updatePost, deletePost };

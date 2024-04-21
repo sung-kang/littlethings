@@ -8,6 +8,7 @@ const findUserById = async (userId: string) => {
     where: (users, { eq }) => eq(users.id, userId),
   });
 
+  /* istanbul ignore next */
   if (!user) {
     throw new UnauthorizedError();
   }

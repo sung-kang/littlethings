@@ -3,13 +3,14 @@ import validate from '../../utils/validate';
 import verifyAuthentication from '../../utils/verifyAuthentication';
 import {
   createPostValidation,
+  updatePostValidation,
   deletePostValidation,
 } from './littlethingsValidations';
 import {
-  createPost,
   getAllPosts,
+  createPost,
+  updatePost,
   deletePost,
-  updatePosts,
 } from './littlethingsControllers';
 
 const router = express.Router();
@@ -31,11 +32,11 @@ router.get('/get-all-posts', getAllPosts);
 router.post('/create-post', validate(createPostValidation), createPost);
 
 /**
- * Route:         POST /api/v1/littlethings/update-post
- * Description:   updates an existing post for the user
+ * Route:         POST /api/v1/littlethings/:id
+ * Description:   Updates a post created by the user by littlethings (post) ID
  * Access:        Private
  */
-router.post('/update-post', updatePosts);
+router.post('/:id', validate(updatePostValidation), updatePost);
 
 /**
  * Route:         DELETE /api/v1/littlethings/:id
