@@ -83,6 +83,8 @@ const startServer = async () => {
       `🟢 Server running at http://${config.HOSTNAME}:${config.PORT} 🟢`
     );
   });
+
+  return app;
 };
 
 const stopServer = async (signal: string): Promise<void> => {

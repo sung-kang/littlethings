@@ -7,6 +7,7 @@ const deleteUser = tryCatch(async (req: Request, res: Response) => {
   await deleteUserAccount(req.session.userId!, req.body.password);
 
   req.session.destroy((error) => {
+    /* istanbul ignore next */
     if (error) {
       throw new InternalError('Something went wrong');
     }
