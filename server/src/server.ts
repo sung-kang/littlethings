@@ -33,8 +33,6 @@ const startServer = async () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  //creates sessions and cookies, and stores the session in the database
-  //whenever client requests user backend, checks if session is active
   const pgSession = connectPgSimple(session);
   app.use(
     session({
