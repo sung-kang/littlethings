@@ -25,7 +25,13 @@ const registerUser = tryCatch(async (req: Request, res: Response) => {
 
   res
     .status(201)
-    .json({ message: { firstName: user.firstName, lastName: user.lastName } });
+    .json({
+      message: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
+    });
 });
 
 export { deleteUser, registerUser };

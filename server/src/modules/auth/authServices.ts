@@ -33,6 +33,7 @@ const login = async (userData: loginData) => {
   return {
     firstName: user.firstName,
     lastName: user.lastName,
+    email: user.email,
     userId: user.id,
   };
 };
