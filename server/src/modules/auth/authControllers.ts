@@ -6,9 +6,13 @@ import { InternalError } from '../../errors';
 const authenticateUser = tryCatch(async (req: Request, res: Response) => {
   const user = await findUserById(req.session.userId!);
 
-  res
-    .status(200)
-    .json({ message: { firstName: user.firstName, lastName: user.lastName } });
+  res.status(200).json({
+    message: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  });
 });
 
 const loginUser = tryCatch(async (req: Request, res: Response) => {

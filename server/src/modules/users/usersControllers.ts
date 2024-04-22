@@ -23,15 +23,13 @@ const registerUser = tryCatch(async (req: Request, res: Response) => {
   const user = await createUser(req.body);
   req.session.userId = user.userId;
 
-  res
-    .status(201)
-    .json({
-      message: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      },
-    });
+  res.status(201).json({
+    message: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  });
 });
 
 export { deleteUser, registerUser };
