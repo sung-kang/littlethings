@@ -36,13 +36,13 @@ const NewLittleThingForm = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          onClick={handleOpen}
-        >
-          New Littlething
-        </Button>
+        <div className="flex justify-center items-center bg-white/30 border border-white rounded-lg p-10 my-5 shadow-lg backdrop-blur-md hover:backdrop-blur-lg transition duration-300 ease-in-out cursor-pointer">
+          <div onClick={handleOpen} className="text-4xl text-gray-800">
+            +
+          </div>
+        </div>
       </DialogTrigger>
+
       <DialogContent className=" sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Littlething</DialogTitle>
