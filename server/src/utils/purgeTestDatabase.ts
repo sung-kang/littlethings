@@ -15,6 +15,15 @@ const purgeTestDatabase = async () => {
       'Do not call this function without providing valid test database connection string.'
     );
   }
+
+  if (
+    config.POSTGRES_TEST_CONNECTION_STRING === config.POSTGRES_CONNECTION_STRING
+  ) {
+    throw new Error(
+      'Do not use production database for testing. It will wipe out the database.'
+    );
+  }
+
   await db.delete(littlethings);
   await db.delete(users);
   await db.execute(sql`TRUNCATE TABLE session;`);
