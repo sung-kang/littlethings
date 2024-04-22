@@ -16,9 +16,9 @@ interface Post {
   updatedAt: string;
 }
 
-const createPost = async (data: Post, frequency: Frequency) => {
+const createPost = async (data: Post) => {
   try {
-    const { description, littlething, occurence } = data;
+    const { description, littlething, occurence, frequency } = data;
     console.log('Form Data: ', data);
 
     console.log(data);

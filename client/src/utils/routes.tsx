@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ErrorPage, HomePage, Login, Register } from '@/pages';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 import AuthRedirect from '@/utils/AuthRedirect';
+import TestComponents from '@/pages/NewLittleThingForm';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'test-components',
+        element: <TestComponents />,
       },
     ],
   },
