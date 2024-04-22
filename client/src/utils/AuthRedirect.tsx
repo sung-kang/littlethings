@@ -1,11 +1,13 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import useAuthContext from '@/hooks/useAuthContext';
 
 const AuthRedirect = () => {
   const { user } = useAuthContext();
+  const location = useLocation();
+  const previousLocation = location?.state?.from?.pathname ?? '/homepage';
 
   return user.isAuthenticated ? (
-    <Navigate to="/homepage" replace />
+    <Navigate to={previousLocation} replace />
   ) : (
     <Outlet />
   );
