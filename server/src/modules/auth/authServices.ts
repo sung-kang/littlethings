@@ -16,6 +16,7 @@ const findUserById = async (userId: string) => {
   return {
     firstName: user.firstName,
     lastName: user.lastName,
+    email: user.email,
   };
 };
 
