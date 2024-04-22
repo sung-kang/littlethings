@@ -15,9 +15,13 @@ const loginUser = tryCatch(async (req: Request, res: Response) => {
   const user = await login(req.body);
   req.session.userId = user.userId;
 
-  res
-    .status(200)
-    .json({ message: { firstName: user.firstName, lastName: user.lastName } });
+  res.status(200).json({
+    message: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  });
 });
 
 const logoutUser = tryCatch(async (req: Request, res: Response) => {

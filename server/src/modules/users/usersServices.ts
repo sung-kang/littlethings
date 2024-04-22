@@ -27,12 +27,14 @@ const createUser = async (userData: InferInsertModel<typeof users>) => {
       id: users.id,
       firstName: users.firstName,
       lastName: users.lastName,
+      email: users.email,
     });
 
   return {
     firstName: user[0].firstName,
     lastName: user[0].lastName,
     userId: user[0].id,
+    email: user[0].email,
   };
 };
 

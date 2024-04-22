@@ -34,6 +34,7 @@ describe('Users Endpoints', () => {
       expect(response.body.message).toMatchObject({
         firstName: userData.firstName,
         lastName: userData.lastName,
+        email: userData.email.toLowerCase(),
       });
       expect(response.headers['set-cookie']).toBeDefined();
     });
