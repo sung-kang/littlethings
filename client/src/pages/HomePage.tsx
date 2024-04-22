@@ -4,8 +4,9 @@ import clsx from 'clsx';
 
 import { handleDelete, fetchingAllPosts } from '@/api-client/homepage';
 import { options, Post } from '@/api-client/homepageutility';
-import NewLttleThingForm from './NewLittleThingForm';
+import NewLittleThingForm from './NewLittleThingForm';
 import { Button } from '@/components/ui/button';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -44,25 +45,24 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center mt-10">
-        Welcome to your littlethings {user.firstName}
+      <div className=" flex justify-center items-center mt-14">
+        <h1 className="text-5xl font-bold text-gray-800">
+          <span className="text-lt-green-2">Little</span> Things
+        </h1>
+      </div>
+      <div className="flex justify-end items-end ">
+        <div className="flex">
+          <Button
+            onClick={deleteButtonState}
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-3 border border-gray-400 rounded shadow"
+          >
+            <TrashIcon />
+          </Button>
+        </div>
       </div>
 
-      <Button
-        onClick={deleteButtonState}
-        className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-      >
-        DELETE POSTS
-      </Button>
-
-      <NewLttleThingForm
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-        setPosts={setPosts}
-      />
-
       <div className="flex justify-center items-center transition-opacity duration-500">
-        <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8 ">
+        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6  ">
           {posts.map((post) => (
             <div
               key={post.id}
@@ -78,6 +78,7 @@ const HomePage = () => {
               <div>
                 {new Date(post.createdAt).toLocaleDateString('en-US', options)}
               </div>
+
               {deletable && (
                 <button
                   onClick={() => deletePostHandler(post.id)}
@@ -88,6 +89,12 @@ const HomePage = () => {
               )}
             </div>
           ))}
+
+          <NewLittleThingForm
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            setPosts={setPosts}
+          />
         </div>
       </div>
     </>
