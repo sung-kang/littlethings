@@ -5,6 +5,7 @@ import { ApiError } from '@/types/Common';
 const defaultUserContext: AuthContextState = {
   firstName: null,
   lastName: null,
+  email: null,
   isAuthenticated: false,
 };
 
@@ -41,6 +42,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         ? setUser({
             firstName: userData.message.firstName,
             lastName: userData.message.lastName,
+            email: userData.message.email,
             isAuthenticated: true,
           })
         : setError(userData.errors);
@@ -83,6 +85,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         ? setUser({
             firstName: userData.message.firstName,
             lastName: userData.message.lastName,
+            email: userData.message.email,
             isAuthenticated: true,
           })
         : setError(userData.errors);
@@ -132,6 +135,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         setUser({
           firstName: userData.message.firstName,
           lastName: userData.message.lastName,
+          email: userData.message.email,
           isAuthenticated: true,
         });
       } else {

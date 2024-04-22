@@ -1,10 +1,15 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useAuthContext from '@/hooks/useAuthContext';
+import ProtectedLayout from '@/Layout/ProtectedLayout';
 
 const ProtectedRoutes = () => {
   const { user } = useAuthContext();
 
-  return user.isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
+  return user.isAuthenticated ? (
+    <ProtectedLayout />
+  ) : (
+    <Navigate to="/" replace />
+  );
 };
 
 export default ProtectedRoutes;

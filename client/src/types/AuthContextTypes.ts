@@ -3,6 +3,7 @@ import { ApiError } from '@/types/Common';
 interface AuthContextState {
   firstName: string | null;
   lastName: string | null;
+  email: string | null;
   isAuthenticated: boolean;
 }
 
