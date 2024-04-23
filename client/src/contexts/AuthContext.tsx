@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { AuthContextState, AuthContextType } from '@/types/AuthContextTypes';
-import { ApiError } from '@/types/Common';
+import { ApiErrorType } from '@/types/Common';
 
 const defaultUserContext: AuthContextState = {
   firstName: null,
@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextType>({
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(defaultUserContext);
-  const [error, setError] = useState<ApiError[] | null>(null);
+  const [error, setError] = useState<ApiErrorType[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const loginUser = async (email: string, password: string) => {
