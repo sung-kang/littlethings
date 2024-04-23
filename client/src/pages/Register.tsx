@@ -66,7 +66,7 @@ const Register = () => {
                 })}
               />
               {errors.firstName && (
-                <p className=" text-red-500 text-xs">
+                <p className="text-red-500 text-xs">
                   {errors.firstName.message}
                 </p>
               )}
@@ -85,7 +85,7 @@ const Register = () => {
                 })}
               />
               {errors.lastName && (
-                <p className=" text-red-500 text-xs">
+                <p className="text-red-500 text-xs">
                   {errors.lastName.message}
                 </p>
               )}
@@ -108,7 +108,7 @@ const Register = () => {
                 })}
               />
               {errors.email && (
-                <p className=" text-red-500 text-xs">{errors.email.message}</p>
+                <p className="text-red-500 text-xs">{errors.email.message}</p>
               )}
 
               <Input
@@ -129,7 +129,7 @@ const Register = () => {
                 })}
               />
               {errors.password && (
-                <p className=" text-red-500 text-xs">
+                <p className="text-red-500 text-xs">
                   {errors.password.message}
                 </p>
               )}
@@ -149,7 +149,7 @@ const Register = () => {
                 })}
               />
               {errors.confirmPassword && (
-                <p className=" text-red-500 text-xs">
+                <p className="text-red-500 text-xs">
                   {errors.confirmPassword.message}
                 </p>
               )}
