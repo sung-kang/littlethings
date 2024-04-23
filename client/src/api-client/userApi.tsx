@@ -43,7 +43,7 @@ const createPost = async (data: Post) => {
   }
 };
 
-const handleDelete = async (postId: string) => {
+const deletePost = async (postId: string) => {
   try {
     const response = await fetch(`/api/v1/littlethings/${postId}`, {
       method: 'DELETE',
@@ -60,7 +60,7 @@ const handleDelete = async (postId: string) => {
   }
 };
 
-const fetchingAllPosts = async () => {
+const getAllPosts = async () => {
   try {
     const response = await fetch('/api/v1/littlethings/get-all-posts', {
       method: 'GET',
@@ -75,4 +75,4 @@ const fetchingAllPosts = async () => {
   }
 };
 
-export { createPost, fetchingAllPosts, handleDelete };
+export { createPost, getAllPosts, deletePost };

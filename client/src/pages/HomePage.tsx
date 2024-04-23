@@ -2,7 +2,7 @@ import useAuthContext from '@/hooks/useAuthContext';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-import { handleDelete, fetchingAllPosts } from '@/api-client/homepage';
+import * as littlethingsApi from '@/api-client/userApi';
 import { options, Post } from '@/api-client/homepageutility';
 import NewLittleThingForm from './NewLittleThingForm';
 import { Button } from '@/components/ui/button';
@@ -32,14 +32,14 @@ const HomePage = () => {
   };
 
   const deletePostHandler = async (postId: string) => {
-    const success = await handleDelete(postId);
+    const success = await littlethingsApi.deletePost(postId);
     if (success) {
       setPosts((posts) => posts.filter((post) => post.id !== postId));
     }
   };
 
   const getPostsHandler = async () => {
-    const data = await fetchingAllPosts();
+    const data = await littlethingsApi.getAllPosts();
     setPosts(data);
   };
 
