@@ -1,4 +1,4 @@
-import { ApiError } from '@/types/Common';
+import { ApiErrorType } from '@/types/Common';
 
 interface AuthContextState {
   firstName: string | null;
@@ -10,7 +10,7 @@ interface AuthContextState {
 interface AuthContextType {
   user: AuthContextState;
   isLoading: boolean;
-  error: ApiError[] | null;
+  error: ApiErrorType[] | null;
   loginUser: (email: string, password: string) => Promise<void>;
   registerUser: (
     firstName: string,

@@ -1,5 +1,5 @@
-interface ApiError {
+interface ApiErrorType {
   message: string;
 }
 
-export type { ApiError };
+export type { ApiErrorType };
