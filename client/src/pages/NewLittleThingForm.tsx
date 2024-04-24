@@ -1,4 +1,4 @@
-import { createPost } from '@/api-client/homepage';
+import * as littlethingsApi from '@/api-client/littlethingsApi';
 import { Post } from '@/api-client/homepageutility';
 import { Button } from '@/components/ui/button';
 import {
@@ -29,7 +29,7 @@ const NewLittleThingForm = ({
   const { register, handleSubmit } = useForm<Post>();
 
   const createPostHandler = async (postData: Post) => {
-    const data = await createPost(postData);
+    const data = await littlethingsApi.createPost(postData);
     setPosts((posts) => [...posts, { ...data.message }]);
   };
 
