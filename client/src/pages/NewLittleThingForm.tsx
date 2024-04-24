@@ -1,4 +1,4 @@
-import * as littlethingsApi from '@/api-client/userApi';
+import * as littlethingsApi from '@/api-client/littlethingsApi';
 import { Post } from '@/api-client/homepageutility';
 import { Button } from '@/components/ui/button';
 import {

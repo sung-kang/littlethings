@@ -2,7 +2,7 @@ import useAuthContext from '@/hooks/useAuthContext';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-import * as littlethingsApi from '@/api-client/userApi';
+import * as littlethingsApi from '@/api-client/littlethingsApi';
 import { options, Post } from '@/api-client/homepageutility';
 import NewLittleThingForm from './NewLittleThingForm';
 import { Button } from '@/components/ui/button';
