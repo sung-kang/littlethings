@@ -25,7 +25,7 @@ const ChangePasswordTab = () => {
   const onSubmit = async (data: ChangePasswordFormFields) => {
     try {
       const response = await fetch('/api/v1/users/change-password', {
-        method: 'POST',
+        method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',

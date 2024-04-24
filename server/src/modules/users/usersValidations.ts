@@ -1,5 +1,30 @@
 import { body } from 'express-validator';
 
+const changePasswordValidation = [
+  body('currentPassword')
+    .isLength({ min: 6, max: 255 })
+    .withMessage('Password must be between 6 and 255 characters long'),
+
+  body('newPassword')
+    .isLength({ min: 6, max: 255 })
+    .withMessage('New Password must be between 6 and 255 characters long')
+    .custom((value, { req }) => {
+      if (value === req.body.currentPassword) {
+        throw new Error('New password cannot be same as current password');
+      }
+
+      return true;
+    }),
+
+  body('confirmNewPassword').custom((value, { req }) => {
+    if (value !== req.body.newPassword) {
+      throw new Error('New password confirmation does not match new password');
+    }
+
+    return true;
+  }),
+];
+
 const deleteUserValidation = [
   body('password')
     .isLength({ min: 6, max: 255 })
@@ -42,4 +67,4 @@ const registerValidation = [
   }),
 ];
 
-export { deleteUserValidation, registerValidation };
+export { changePasswordValidation, deleteUserValidation, registerValidation };

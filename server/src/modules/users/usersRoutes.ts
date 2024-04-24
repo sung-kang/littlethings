@@ -1,7 +1,11 @@
 import express from 'express';
 import validate from '../../utils/validate';
-import { registerUser, deleteUser } from './usersControllers';
-import { deleteUserValidation, registerValidation } from './usersValidations';
+import { changePassword, deleteUser, registerUser } from './usersControllers';
+import {
+  changePasswordValidation,
+  deleteUserValidation,
+  registerValidation,
+} from './usersValidations';
 import verifyAuthentication from '../../utils/verifyAuthentication';
 
 const router = express.Router();
@@ -23,6 +27,18 @@ router.delete(
   verifyAuthentication,
   validate(deleteUserValidation),
   deleteUser
+);
+
+/**
+ * Route:         PUT /api/v1/users/change-password
+ * Description:   Changes password for authenticated user
+ * Access:        Private
+ */
+router.put(
+  '/change-password',
+  verifyAuthentication,
+  validate(changePasswordValidation),
+  changePassword
 );
 
 export default router;

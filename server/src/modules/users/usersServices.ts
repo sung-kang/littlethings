@@ -8,6 +8,30 @@ import {
   UnauthorizedError,
 } from '../../errors';
 
+const changeUserPassword = async (
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+) => {
+  const user = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.id, userId),
+  });
+
+  if (!user || !(await bcrypt.compare(currentPassword, user.password))) {
+    throw new UnauthorizedError('Invalid credentials');
+  }
+
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+  const updatedPassword = await db
+    .update(users)
+    .set({ password: hashedNewPassword, updatedAt: new Date() });
+
+  /* istanbul ignore next */
+  if (updatedPassword.rowCount === 0) {
+    throw new InternalError();
+  }
+};
+
 const createUser = async (userData: InferInsertModel<typeof users>) => {
   const { firstName, lastName, email, password } = userData;
 
@@ -55,4 +79,4 @@ const deleteUserAccount = async (userId: string, password: string) => {
   }
 };
 
-export { createUser, deleteUserAccount };
+export { changeUserPassword, createUser, deleteUserAccount };
