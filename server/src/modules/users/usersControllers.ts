@@ -1,7 +1,21 @@
 import { Request, Response } from 'express';
 import tryCatch from '../../utils/tryCatch';
-import { createUser, deleteUserAccount } from './usersServices';
+import {
+  changeUserPassword,
+  createUser,
+  deleteUserAccount,
+} from './usersServices';
 import { InternalError } from '../../errors';
+
+const changePassword = tryCatch(async (req: Request, res: Response) => {
+  await changeUserPassword(
+    req.session.userId!,
+    req.body.currentPassword,
+    req.body.newPassword
+  );
+
+  res.status(200).send({ message: 'Password updated successfully' });
+});
 
 const deleteUser = tryCatch(async (req: Request, res: Response) => {
   await deleteUserAccount(req.session.userId!, req.body.password);
@@ -32,4 +46,4 @@ const registerUser = tryCatch(async (req: Request, res: Response) => {
   });
 });
 
-export { deleteUser, registerUser };
+export { changePassword, deleteUser, registerUser };

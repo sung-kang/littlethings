@@ -173,4 +173,119 @@ describe('Users Endpoints', () => {
       );
     });
   });
+
+  describe('PUT /api/v1/users/change-password', () => {
+    it('should update to new password for authenticated user', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser4@example.com',
+        password: 'beforeChange',
+        confirmPassword: 'beforeChange',
+      };
+      const changePasswordData = {
+        currentPassword: 'beforeChange',
+        newPassword: 'afterChange',
+        confirmNewPassword: 'afterChange',
+      };
+      const updatedLoginData = {
+        email: 'testUser4@example.com',
+        password: 'afterChange',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/change-password')
+        .send(changePasswordData);
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toEqual('Password updated successfully');
+
+      response = await agent.post('/api/v1/auth/logout');
+      response = await agent.post('/api/v1/auth/login').send(updatedLoginData);
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toMatchObject({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email.toLocaleLowerCase(),
+      });
+    });
+
+    it('should not update to new passowrd with incorrect current password', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser5@example.com',
+        password: 'beforeChange',
+        confirmPassword: 'beforeChange',
+      };
+      const changePasswordData = {
+        currentPassword: 'incorrectPassword',
+        newPassword: 'afterChange',
+        confirmNewPassword: 'afterChange',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/change-password')
+        .send(changePasswordData);
+
+      expect(response.statusCode).toBe(401);
+      expect(response.body.errors[0].message).toEqual('Invalid credentials');
+    });
+
+    it('should not update to new passowrd with invalid form request', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser6@example.com',
+        password: 'beforeChange',
+        confirmPassword: 'beforeChange',
+      };
+      const changePasswordData = {
+        currentPassword: 'bad',
+        newPassword: 'bad',
+        confirmNewPassword: 'invalid',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/change-password')
+        .send(changePasswordData);
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors[0].message).toEqual(
+        'Password must be between 6 and 255 characters long'
+      );
+      expect(response.body.errors[1].message).toEqual(
+        'New Password must be between 6 and 255 characters long'
+      );
+      expect(response.body.errors[2].message).toEqual(
+        'New password cannot be same as current password'
+      );
+      expect(response.body.errors[3].message).toEqual(
+        'New password confirmation does not match new password'
+      );
+    });
+
+    it('should not update to new passowrd without active session', async () => {
+      const agent = request.agent(server);
+      const changePasswordData = {
+        currentPassword: 'bad',
+        newPassword: 'bad',
+        confirmNewPassword: 'invalid',
+      };
+
+      const response = await agent
+        .put('/api/v1/users/change-password')
+        .send(changePasswordData);
+
+      expect(response.statusCode).toBe(401);
+      expect(response.body.errors[0].message).toEqual('Unauthorized');
+    });
+  });
 });
