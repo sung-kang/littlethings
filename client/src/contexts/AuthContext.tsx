@@ -11,6 +11,7 @@ const defaultUserContext: AuthContextState = {
 
 const AuthContext = createContext<AuthContextType>({
   user: defaultUserContext,
+  setUser: () => {},
   isLoading: false,
   error: null,
   loginUser: async () => {},
@@ -38,6 +39,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       const userData = await response.json();
+
       response.ok
         ? setUser({
             firstName: userData.message.firstName,
@@ -90,7 +92,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
           })
         : setError(userData.errors);
     } catch (error) {
-      console.error('Error logging in', error);
+      console.error('Error registering for an account', error);
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +115,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
       response.ok ? setUser(defaultUserContext) : setError(responseData.errors);
     } catch (error) {
-      console.error('Error logging in', error);
+      console.error('Error logging out', error);
     } finally {
       setIsLoading(false);
     }
@@ -155,7 +157,15 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, error, isLoading, loginUser, registerUser, logoutUser }}
+      value={{
+        user,
+        setUser,
+        error,
+        isLoading,
+        loginUser,
+        registerUser,
+        logoutUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -288,4 +288,138 @@ describe('Users Endpoints', () => {
       expect(response.body.errors[0].message).toEqual('Unauthorized');
     });
   });
+
+  describe('PUT /api/v1/users/update-user', () => {
+    it('should update account information for authenticated user', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser7@example.com',
+        password: 'testPassword',
+        confirmPassword: 'testPassword',
+      };
+      const updateUserData = {
+        firstName: 'updateTestFirst',
+        lastName: 'updateTestLast',
+        email: 'updateTestUser7@example.com',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toMatchObject({
+        firstName: updateUserData.firstName,
+        lastName: updateUserData.lastName,
+        email: updateUserData.email.toLowerCase(),
+      });
+
+      response = await agent.get('/api/v1/auth/authenticate');
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toMatchObject({
+        firstName: updateUserData.firstName,
+        lastName: updateUserData.lastName,
+        email: updateUserData.email.toLowerCase(),
+      });
+    });
+
+    it('should not update account information for unauthenticated user', async () => {
+      const agent = request.agent(server);
+
+      const updateUserData = {
+        firstName: 'updateTestFirst',
+        lastName: 'updateTestLast',
+        email: 'updateTestUser7@example.com',
+      };
+
+      const response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(401);
+      expect(response.body.errors[0].message).toEqual('Unauthorized');
+    });
+
+    it('should not update account information with invalid form request', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser8@example.com',
+        password: 'testPassword',
+        confirmPassword: 'testPassword',
+      };
+      const updateUserData = {
+        firstName: '',
+        lastName: '',
+        email: 'invalid',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors[0].message).toEqual(
+        'Must be a valid email address'
+      );
+    });
+
+    it('should not update account information with empty request body', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser9@example.com',
+        password: 'testPassword',
+        confirmPassword: 'testPassword',
+      };
+      const updateUserData = {
+        firstName: '',
+        lastName: '',
+        email: '',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors[0].message).toEqual(
+        'At least one field is required'
+      );
+    });
+
+    it('should not update account if all fields are same as previous data', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser10@example.com',
+        password: 'testPassword',
+        confirmPassword: 'testPassword',
+      };
+      const updateUserData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser10@example.com',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(400);
+      expect(response.body.errors[0].message).toEqual(
+        'At least one field must be different from previous data'
+      );
+    });
+  });
 });

@@ -4,8 +4,10 @@ import {
   changeUserPassword,
   createUser,
   deleteUserAccount,
+  updateUserAccount,
 } from './usersServices';
-import { InternalError } from '../../errors';
+import { BadRequestError, InternalError } from '../../errors';
+import { findUserById } from '../auth/authServices';
 
 const changePassword = tryCatch(async (req: Request, res: Response) => {
   await changeUserPassword(
@@ -46,4 +48,23 @@ const registerUser = tryCatch(async (req: Request, res: Response) => {
   });
 });
 
-export { changePassword, deleteUser, registerUser };
+const updateUser = tryCatch(async (req: Request, res: Response) => {
+  const { firstName, lastName, email } = req.body;
+  const user = await findUserById(req.session.userId!);
+
+  if (
+    user.firstName === firstName &&
+    user.lastName === lastName &&
+    user.email === email
+  ) {
+    throw new BadRequestError(
+      'At least one field must be different from previous data'
+    );
+  }
+
+  const updatedUser = await updateUserAccount(req.session.userId!, req.body);
+
+  res.status(200).json({ message: updatedUser });
+});
+
+export { changePassword, deleteUser, registerUser, updateUser };

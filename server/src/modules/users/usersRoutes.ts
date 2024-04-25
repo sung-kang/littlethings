@@ -1,10 +1,16 @@
 import express from 'express';
 import validate from '../../utils/validate';
-import { changePassword, deleteUser, registerUser } from './usersControllers';
+import {
+  changePassword,
+  deleteUser,
+  registerUser,
+  updateUser,
+} from './usersControllers';
 import {
   changePasswordValidation,
   deleteUserValidation,
   registerValidation,
+  updateUserValidation,
 } from './usersValidations';
 import verifyAuthentication from '../../utils/verifyAuthentication';
 
@@ -39,6 +45,18 @@ router.put(
   verifyAuthentication,
   validate(changePasswordValidation),
   changePassword
+);
+
+/**
+ * Route:         PUT /api/v1/users/update-user
+ * Description:   Updates account information for authenticated user
+ * Access:        Private
+ */
+router.put(
+  '/update-user',
+  verifyAuthentication,
+  validate(updateUserValidation),
+  updateUser
 );
 
 export default router;

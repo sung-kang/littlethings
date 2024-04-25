@@ -15,7 +15,7 @@ import { UpdateAccountFormFields } from '@/types/AccountFormFieldTypes';
 import { ApiErrorType } from '@/types/Common';
 
 const UpdateAccountTab = () => {
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const { toast } = useToast();
   const {
     register,
@@ -25,8 +25,8 @@ const UpdateAccountTab = () => {
 
   const onSubmit = async (data: UpdateAccountFormFields) => {
     try {
-      const response = await fetch('/api/v1/users/update-account', {
-        method: 'POST',
+      const response = await fetch('/api/v1/users/update-user', {
+        method: 'PUT',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
@@ -44,8 +44,10 @@ const UpdateAccountTab = () => {
         );
       }
 
+      setUser({ ...user, ...updatedUserData.message });
+
       toast({
-        title: 'Successfully updated account!',
+        title: 'Successfully updated account information!',
       });
     } catch (error) {
       console.error(error);
