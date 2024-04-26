@@ -81,11 +81,11 @@ const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="occurence" className="text-right">
-                Occurence:
+                Occurrence:
               </Label>
               <Input
-                {...register('occurence', { required: true })}
-                id="occurence"
+                {...register('occurrence', { required: true })}
+                id="occurrence"
                 className="col-span-3"
               />
             </div>

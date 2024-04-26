@@ -11,14 +11,14 @@ interface Post {
   description: string;
   littlething: string;
   frequency: Frequency;
-  occurence: number;
+  occurrence: number;
   createdAt: string;
   updatedAt: string;
 }
 
 const createPost = async (data: Post) => {
   try {
-    const { description, littlething, occurence, frequency } = data;
+    const { description, littlething, occurrence, frequency } = data;
     console.log('Form Data: ', data);
 
     console.log(data);
@@ -32,7 +32,7 @@ const createPost = async (data: Post) => {
         description,
         littlething,
         frequency,
-        occurence,
+        occurrence,
       }),
     });
 
