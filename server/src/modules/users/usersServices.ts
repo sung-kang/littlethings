@@ -84,6 +84,14 @@ const updateUserAccount = async (
   userId: string,
   updateUserData: UpdateUserData
 ) => {
+  const emailExists = await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.email, updateUserData.email as string),
+  });
+
+  if (emailExists) {
+    throw new BadRequestError('User with entered email already exists', 409);
+  }
+
   const updatedUser = await db
     .update(users)
     .set({ ...updateUserData, updatedAt: new Date() })

@@ -1,7 +1,7 @@
 type UpdateUserData = {
   firstName?: string;
   lastName?: string;
-  emaill?: string;
+  email?: string;
 };
 
 export type { UpdateUserData };
