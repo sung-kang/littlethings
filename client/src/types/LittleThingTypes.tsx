@@ -1,4 +1,4 @@
-export const options: Intl.DateTimeFormatOptions = {
+export const TimeOptions: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-
 import * as littlethingsApi from '@/api-client/littlethingsApi';
-import { Post } from '@/api-client/homepageutility';
-import NewLittleThingForm from '../components/NewLittleThingForm';
-
-import LittleThingCard from '../components/LittleThingCard';
+import { Post } from '@/types/LittleThingTypes';
+import { LittleThingCard, NewLittleThingForm } from '@/components';
 
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -46,7 +43,7 @@ const HomePage = () => {
                 littlething={post.littlething}
                 description={post.description}
                 frequency={post.frequency}
-                occurence={post.occurrence}
+                occurrence={post.occurrence}
                 createdAt={post.createdAt}
                 deletable={deletable}
               />
