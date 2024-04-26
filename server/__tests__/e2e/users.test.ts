@@ -306,6 +306,7 @@ describe('Users Endpoints', () => {
       };
 
       let response = await agent.post('/api/v1/users/register').send(userData);
+
       response = await agent
         .put('/api/v1/users/update-user')
         .send(updateUserData);
@@ -419,6 +420,32 @@ describe('Users Endpoints', () => {
       expect(response.statusCode).toBe(400);
       expect(response.body.errors[0].message).toEqual(
         'At least one field must be different from previous data'
+      );
+    });
+
+    it('should not update account if email already exists', async () => {
+      const agent = request.agent(server);
+      const userData = {
+        firstName: 'testFirst',
+        lastName: 'testLast',
+        email: 'testUser11@example.com',
+        password: 'testPassword',
+        confirmPassword: 'testPassword',
+      };
+      const updateUserData = {
+        firstName: 'updateTestFirst',
+        lastName: 'updateTestLast',
+        email: 'testUser10@example.com',
+      };
+
+      let response = await agent.post('/api/v1/users/register').send(userData);
+      response = await agent
+        .put('/api/v1/users/update-user')
+        .send(updateUserData);
+
+      expect(response.statusCode).toBe(409);
+      expect(response.body.errors[0].message).toEqual(
+        'User with entered email already exists'
       );
     });
   });
