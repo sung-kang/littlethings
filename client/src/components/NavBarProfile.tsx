@@ -16,6 +16,7 @@ import {
   DeleteAccountTab,
   UpdateAccountTab,
 } from '@/components';
+import { GearIcon } from '@radix-ui/react-icons';
 
 const NavBarProfile = () => {
   const { user } = useAuthContext();
@@ -28,7 +29,10 @@ const NavBarProfile = () => {
           <Button
             variant="outline"
             className="text-lt-purple-2 text-lg hover:text-lt-purple-1 hover:underline"
-          >{`${user.firstName} ${user.lastName}`}</Button>
+          >
+            {`${user.firstName} ${user.lastName}`}
+            <GearIcon className="ml-1" />
+          </Button>
         </DialogTrigger>
         <DialogContent className="flex flex-col justify-center items-center">
           <DialogHeader>
