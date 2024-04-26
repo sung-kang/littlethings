@@ -18,7 +18,7 @@ export interface Post {
   description: string;
   littlething: string;
   frequency: Frequency;
-  occurence: number;
+  occurrence: number;
   createdAt: string;
   updatedAt: string;
 }

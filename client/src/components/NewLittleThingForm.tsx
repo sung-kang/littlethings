@@ -15,17 +15,11 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 
-interface TestComponentsProps {
-  handleClose: () => void;
-  handleOpen: () => void;
+interface FormComponentProps {
   setPosts: Dispatch<SetStateAction<Post[]>>;
 }
 
-const NewLittleThingForm = ({
-  handleClose,
-  handleOpen,
-  setPosts,
-}: TestComponentsProps) => {
+const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
   const { register, handleSubmit } = useForm<Post>();
 
   const createPostHandler = async (postData: Post) => {
@@ -35,13 +29,13 @@ const NewLittleThingForm = ({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div className="flex justify-center items-center bg-white/30 border border-white rounded-lg p-10 my-5 shadow-lg backdrop-blur-md hover:backdrop-blur-lg transition duration-300 ease-in-out cursor-pointer">
-          <div onClick={handleOpen} className="text-4xl text-gray-800">
-            +
+      <div className="relative">
+        <DialogTrigger asChild>
+          <div className="absolute top-0 right-0 m-4 z-50">
+            <button className="text-4xl text-gray-800">+</button>
           </div>
-        </div>
-      </DialogTrigger>
+        </DialogTrigger>
+      </div>
 
       <DialogContent className=" sm:max-w-[425px]">
         <DialogHeader>
@@ -87,21 +81,17 @@ const NewLittleThingForm = ({
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="occurence" className="text-right">
-                Occurence:
+                Occurrence:
               </Label>
               <Input
-                {...register('occurence', { required: true })}
-                id="occurence"
+                {...register('occurrence', { required: true })}
+                id="occurrence"
                 className="col-span-3"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button
-              className="bg-[#99b4df]"
-              onClick={handleClose}
-              type="submit"
-            >
+            <Button className="bg-[#99b4df]" type="submit">
               Save changes
             </Button>
           </DialogFooter>

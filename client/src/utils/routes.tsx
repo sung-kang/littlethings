@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ErrorPage, HomePage, Login, Register, Summary } from '@/pages';
 import ProtectedRoutes from '@/utils/ProtectedRoutes';
 import AuthRedirect from '@/utils/AuthRedirect';
-import TestComponents from '@/pages/NewLittleThingForm';
+import TestComponents from '@/components/LittleThingCard';
 
 const router = createBrowserRouter([
   {
