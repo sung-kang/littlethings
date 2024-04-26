@@ -9,6 +9,7 @@ interface AuthContextState {
 
 interface AuthContextType {
   user: AuthContextState;
+  setUser: React.Dispatch<React.SetStateAction<AuthContextState>>;
   isLoading: boolean;
   error: ApiErrorType[] | null;
   loginUser: (email: string, password: string) => Promise<void>;

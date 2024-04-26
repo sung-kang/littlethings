@@ -7,6 +7,7 @@ import {
   InternalError,
   UnauthorizedError,
 } from '../../errors';
+import { UpdateUserData } from './usersTypes';
 
 const changeUserPassword = async (
   userId: string,
@@ -79,4 +80,26 @@ const deleteUserAccount = async (userId: string, password: string) => {
   }
 };
 
-export { changeUserPassword, createUser, deleteUserAccount };
+const updateUserAccount = async (
+  userId: string,
+  updateUserData: UpdateUserData
+) => {
+  const updatedUser = await db
+    .update(users)
+    .set({ ...updateUserData, updatedAt: new Date() })
+    .where(eq(users.id, userId))
+    .returning({
+      firstName: users.firstName,
+      lastName: users.lastName,
+      email: users.email,
+    });
+
+  /* istanbul ignore next */
+  if (!updatedUser) {
+    throw new InternalError();
+  }
+
+  return updatedUser[0];
+};
+
+export { changeUserPassword, createUser, deleteUserAccount, updateUserAccount };
