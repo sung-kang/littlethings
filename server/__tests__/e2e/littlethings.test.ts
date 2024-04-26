@@ -52,6 +52,7 @@ describe('Littlethings Endpoints', () => {
         littlething: postData.littlething,
         frequency: postData.frequency,
         occurrence: postData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
@@ -133,6 +134,7 @@ describe('Littlethings Endpoints', () => {
         littlething: postData.littlething,
         frequency: postData.frequency,
         occurrence: postData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
@@ -184,6 +186,7 @@ describe('Littlethings Endpoints', () => {
         littlething: updatePostData.littlething,
         frequency: updatePostData.frequency,
         occurrence: updatePostData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
