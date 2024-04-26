@@ -16,16 +16,10 @@ import { useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 
 interface FormComponentProps {
-  handleClose: () => void;
-  handleOpen: () => void;
   setPosts: Dispatch<SetStateAction<Post[]>>;
 }
 
-const NewLittleThingForm = ({
-  handleClose,
-  handleOpen,
-  setPosts,
-}: FormComponentProps) => {
+const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
   const { register, handleSubmit } = useForm<Post>();
 
   const createPostHandler = async (postData: Post) => {
@@ -38,9 +32,7 @@ const NewLittleThingForm = ({
       <div className="relative">
         <DialogTrigger asChild>
           <div className="absolute top-0 right-0 m-4 z-50">
-            <div onClick={handleOpen} className="text-4xl text-gray-800">
-              +
-            </div>
+            <button className="text-4xl text-gray-800">+</button>
           </div>
         </DialogTrigger>
       </div>
@@ -99,11 +91,7 @@ const NewLittleThingForm = ({
             </div>
           </div>
           <DialogFooter>
-            <Button
-              className="bg-[#99b4df]"
-              onClick={handleClose}
-              type="submit"
-            >
+            <Button className="bg-[#99b4df]" type="submit">
               Save changes
             </Button>
           </DialogFooter>

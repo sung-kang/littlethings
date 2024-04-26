@@ -1,16 +1,13 @@
-import useAuthContext from '@/hooks/useAuthContext';
 import { useEffect, useState } from 'react';
 
 import * as littlethingsApi from '@/api-client/littlethingsApi';
 import { Post } from '@/api-client/homepageutility';
-import NewLittleThingForm from './NewLittleThingForm';
+import NewLittleThingForm from '../components/NewLittleThingForm';
 
-import TestComponents from './TestComponents';
+import LittleThingCard from '../components/LittleThingCard';
 
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const { user } = useAuthContext();
-  const [create, setCreate] = useState(false);
   const [deletable, setDeletable] = useState(false);
 
   const deleteButtonState = () => {
@@ -21,21 +18,13 @@ const HomePage = () => {
     getPostsHandler();
   }, []);
 
-  const handleClose = () => {
-    setCreate(false);
-  };
-
-  const handleOpen = () => {
-    setCreate((create) => !create);
-  };
-
   const getPostsHandler = async () => {
     const data = await littlethingsApi.getAllPosts();
     setPosts(data);
   };
 
   return (
-    <>
+    <div>
       <div className="relative">
         <button
           onClick={deleteButtonState}
@@ -44,18 +33,15 @@ const HomePage = () => {
           -
         </button>
         <div>
-          <NewLittleThingForm
-            handleOpen={handleOpen}
-            handleClose={handleClose}
-            setPosts={setPosts}
-          />
+          <NewLittleThingForm setPosts={setPosts} />
         </div>
         <div className="flex justify-center items-center">
           <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 p-10 ">
             {posts.map((post) => (
-              <TestComponents
+              <LittleThingCard
                 posts={posts}
                 setPosts={setPosts}
+                key={post.id}
                 postId={post.id}
                 littlething={post.littlething}
                 description={post.description}
@@ -68,7 +54,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -18,18 +18,20 @@ interface CardComponentProps {
   createdAt: string;
   user_id?: string;
   updatedAt?: string;
+  key: string;
   postId: string;
   posts: Post[];
   deletable?: boolean;
 }
 
-const TestComponents = ({
+const LittleThingCard = ({
   setPosts,
   littlething,
   description,
   frequency,
   occurence,
   createdAt,
+
   postId,
   deletable,
 }: CardComponentProps) => {
@@ -41,7 +43,7 @@ const TestComponents = ({
   };
 
   return (
-    <>
+    <div>
       <div
         key={postId}
         className={clsx(
@@ -80,7 +82,7 @@ const TestComponents = ({
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0 ms-4">
                   <div className="flex-shrink-0"></div>
-                  <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                  <div className="text-sm font-medium text-gray-900 truncate dark:text-white">
                     <HoverCard>
                       <HoverCardTrigger asChild>
                         <div className="truncate">
@@ -103,7 +105,7 @@ const TestComponents = ({
                         </div>
                       </HoverCardContent>
                     </HoverCard>
-                  </p>
+                  </div>
                 </div>
               </div>
             </li>
@@ -159,8 +161,8 @@ const TestComponents = ({
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default TestComponents;
+export default LittleThingCard;
