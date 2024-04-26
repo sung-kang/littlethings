@@ -213,7 +213,7 @@ describe('Users Endpoints', () => {
       });
     });
 
-    it('should not update to new passowrd with incorrect current password', async () => {
+    it('should not update to new ppassword with incorrect current password', async () => {
       const agent = request.agent(server);
       const userData = {
         firstName: 'testFirst',
@@ -237,7 +237,7 @@ describe('Users Endpoints', () => {
       expect(response.body.errors[0].message).toEqual('Invalid credentials');
     });
 
-    it('should not update to new passowrd with invalid form request', async () => {
+    it('should not update to new ppassword with invalid form request', async () => {
       const agent = request.agent(server);
       const userData = {
         firstName: 'testFirst',
@@ -272,7 +272,7 @@ describe('Users Endpoints', () => {
       );
     });
 
-    it('should not update to new passowrd without active session', async () => {
+    it('should not update to new ppassword without active session', async () => {
       const agent = request.agent(server);
       const changePasswordData = {
         currentPassword: 'bad',
