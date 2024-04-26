@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 
-interface TestComponentsProps {
+interface FormComponentProps {
   handleClose: () => void;
   handleOpen: () => void;
   setPosts: Dispatch<SetStateAction<Post[]>>;
@@ -25,7 +25,7 @@ const NewLittleThingForm = ({
   handleClose,
   handleOpen,
   setPosts,
-}: TestComponentsProps) => {
+}: FormComponentProps) => {
   const { register, handleSubmit } = useForm<Post>();
 
   const createPostHandler = async (postData: Post) => {
@@ -35,13 +35,15 @@ const NewLittleThingForm = ({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div className="flex justify-center items-center bg-white/30 border border-white rounded-lg p-10 my-5 shadow-lg backdrop-blur-md hover:backdrop-blur-lg transition duration-300 ease-in-out cursor-pointer">
-          <div onClick={handleOpen} className="text-4xl text-gray-800">
-            +
+      <div className="relative">
+        <DialogTrigger asChild>
+          <div className="absolute top-0 right-0 m-4 z-50">
+            <div onClick={handleOpen} className="text-4xl text-gray-800">
+              +
+            </div>
           </div>
-        </div>
-      </DialogTrigger>
+        </DialogTrigger>
+      </div>
 
       <DialogContent className=" sm:max-w-[425px]">
         <DialogHeader>
