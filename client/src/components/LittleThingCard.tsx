@@ -14,7 +14,7 @@ interface CardComponentProps {
   littlething: string;
   description: string;
   frequency: Frequency;
-  occurence: number;
+  occurrence: number;
   createdAt: string;
   user_id?: string;
   updatedAt?: string;
@@ -29,7 +29,7 @@ const LittleThingCard = ({
   littlething,
   description,
   frequency,
-  occurence,
+  occurrence,
   createdAt,
 
   postId,
@@ -124,7 +124,7 @@ const LittleThingCard = ({
                 <div className="flex-shrink-0"></div>
                 <div className="flex-1 min-w-0 ms-4">
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                    Occurence: {occurence}
+                    Occurrence: {occurrence}
                   </p>
                 </div>
               </div>
@@ -147,7 +147,7 @@ const LittleThingCard = ({
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                     Completion Status:
                     <span className="inline-flex items-center ml-2">
-                      {Array.from({ length: occurence }).map((_, idx) => (
+                      {Array.from({ length: occurrence }).map((_, idx) => (
                         <span
                           key={idx}
                           className="w-2 h-2 rounded-full bg-green-500 mr-2"

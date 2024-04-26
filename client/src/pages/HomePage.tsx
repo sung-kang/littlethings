@@ -46,7 +46,7 @@ const HomePage = () => {
                 littlething={post.littlething}
                 description={post.description}
                 frequency={post.frequency}
-                occurence={post.occurrence}
+                occurrence={post.occurrence}
                 createdAt={post.createdAt}
                 deletable={deletable}
               />
