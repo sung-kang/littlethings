@@ -23,7 +23,7 @@ const createPostValidation = [
       'Frequency must be one of the following: Daily, Weekly, Monthly, Yearly'
     ),
 
-  body('occurence')
+  body('occurrence')
     .notEmpty()
     .withMessage('Occurrence is required')
     .isInt({ min: 1 })
@@ -56,7 +56,7 @@ const updatePostValidation = [
       'Frequency must be one of the following: Daily, Weekly, Monthly, Yearly'
     ),
 
-  body('occurence')
+  body('occurrence')
     .optional()
     .isInt({ min: 1 })
     .withMessage('Occurrence must be an integer and at least 1'),
