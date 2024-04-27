@@ -6,8 +6,8 @@ import {
 import clsx from 'clsx';
 import * as littlethingsApi from '@/api-client/littlethingsApi';
 import { Dispatch, SetStateAction } from 'react';
-import { Frequency, options } from '@/api-client/homepageutility';
-import { Post } from '@/api-client/homepageutility';
+import { Frequency, TimeOptions } from '@/types/LittleThingTypes';
+import { Post } from '@/types/LittleThingTypes';
 
 interface CardComponentProps {
   setPosts: Dispatch<SetStateAction<Post[]>>;
@@ -135,7 +135,10 @@ const LittleThingCard = ({
                 <div className="flex-1 min-w-0 ms-4">
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                     Started:{' '}
-                    {new Date(createdAt).toLocaleDateString('en-US', options)}
+                    {new Date(createdAt).toLocaleDateString(
+                      'en-US',
+                      TimeOptions
+                    )}
                   </p>
                 </div>
               </div>

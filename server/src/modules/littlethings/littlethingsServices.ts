@@ -15,7 +15,8 @@ const createLittleThings = async (
       description: littlethings.description,
       littlething: littlethings.littlething,
       frequency: littlethings.frequency,
-      occurence: littlethings.occurence,
+      occurrence: littlethings.occurrence,
+      completionCount: littlethings.completionCount,
       createdAt: littlethings.createdAt,
       updatedAt: littlethings.updatedAt,
     });
@@ -58,7 +59,7 @@ const updateLittleThingsPostById = async (
   const fieldsToUpdate = [
     'description',
     'littlething',
-    'occurence',
+    'occurrence',
     'frequency',
   ] as const;
 
@@ -82,7 +83,8 @@ const updateLittleThingsPostById = async (
       description: littlethings.description,
       littlething: littlethings.littlething,
       frequency: littlethings.frequency,
-      occurence: littlethings.occurence,
+      occurrence: littlethings.occurrence,
+      completionCount: littlethings.completionCount,
       createdAt: littlethings.createdAt,
       updatedAt: littlethings.updatedAt,
     });

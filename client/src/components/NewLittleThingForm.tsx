@@ -1,5 +1,5 @@
 import * as littlethingsApi from '@/api-client/littlethingsApi';
-import { Post } from '@/api-client/homepageutility';
+import { Post } from '@/types/LittleThingTypes';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -80,7 +80,7 @@ const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="occurence" className="text-right">
+              <Label htmlFor="occurrence" className="text-right">
                 Occurrence:
               </Label>
               <Input

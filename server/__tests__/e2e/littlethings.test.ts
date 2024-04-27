@@ -37,7 +37,7 @@ describe('Littlethings Endpoints', () => {
         description: 'test description',
         littlething: 'test littlethings',
         frequency: 'Weekly',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -51,7 +51,8 @@ describe('Littlethings Endpoints', () => {
         description: postData.description,
         littlething: postData.littlething,
         frequency: postData.frequency,
-        occurence: postData.occurence,
+        occurrence: postData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
@@ -63,7 +64,7 @@ describe('Littlethings Endpoints', () => {
         description: 'test description',
         littlething: 'test littlethings',
         frequency: 'Weekly',
-        occurence: 1,
+        occurrence: 1,
       };
 
       const response = await agent
@@ -84,7 +85,7 @@ describe('Littlethings Endpoints', () => {
         description: '',
         littlething: '',
         frequency: 'invalid',
-        occurence: 0,
+        occurrence: 0,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -119,7 +120,7 @@ describe('Littlethings Endpoints', () => {
         description: 'test description',
         littlething: 'test littlethings',
         frequency: 'Weekly',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -132,7 +133,8 @@ describe('Littlethings Endpoints', () => {
         description: postData.description,
         littlething: postData.littlething,
         frequency: postData.frequency,
-        occurence: postData.occurence,
+        occurrence: postData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
@@ -159,13 +161,13 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {
         description: 'after update',
         littlething: 'after update',
         frequency: 'Weekly',
-        occurence: 2,
+        occurrence: 2,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -183,7 +185,8 @@ describe('Littlethings Endpoints', () => {
         description: updatePostData.description,
         littlething: updatePostData.littlething,
         frequency: updatePostData.frequency,
-        occurence: updatePostData.occurence,
+        occurrence: updatePostData.occurrence,
+        completionCount: 0,
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       });
@@ -206,13 +209,13 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {
         description: 'after update',
         littlething: 'after update',
         frequency: 'Weekly',
-        occurence: 2,
+        occurrence: 2,
       };
 
       let otherUserResponse = await agent
@@ -244,13 +247,13 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {
         description: 'after update',
         littlething: 'after update',
         frequency: 'Weekly',
-        occurence: 2,
+        occurrence: 2,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -279,13 +282,13 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {
         description: 'after update',
         littlething: 'after update',
         frequency: 'Weekly',
-        occurence: 2,
+        occurrence: 2,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -312,13 +315,13 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {
         description: 'after update',
         littlething: 'after update',
         frequency: 'invalid',
-        occurence: 'invalid',
+        occurrence: 'invalid',
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -349,7 +352,7 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
       const updatePostData = {};
 
@@ -380,7 +383,7 @@ describe('Littlethings Endpoints', () => {
         description: 'test description',
         littlething: 'test littlethings',
         frequency: 'Weekly',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -404,7 +407,7 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -431,7 +434,7 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let response = await agent.post('/api/v1/auth/login').send(userData);
@@ -460,7 +463,7 @@ describe('Littlethings Endpoints', () => {
         description: 'before update',
         littlething: 'before update',
         frequency: 'Daily',
-        occurence: 1,
+        occurrence: 1,
       };
 
       let otherUserResponse = await agent
