@@ -1,6 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import router from '@/utils/routes';
 import useAuthContext from '@/hooks/useAuthContext';
+import { Toaster } from '@/components/ui/toaster';
 
 function App() {
   const { isLoading } = useAuthContext();
@@ -10,7 +11,10 @@ function App() {
       Loading. . .
     </div>
   ) : (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
   );
 }
 

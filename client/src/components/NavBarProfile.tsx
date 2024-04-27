@@ -21,6 +21,7 @@ import { GearIcon } from '@radix-ui/react-icons';
 const NavBarProfile = () => {
   const { user } = useAuthContext();
   const [activeTab, setActiveTab] = useState('updateAccount');
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   return (
     <div className="bg-white px-6 py-4 shadow-md flex flex-col items-center justify-center w-64 min-h-[10rem] rounded-xl">
@@ -53,13 +54,13 @@ const NavBarProfile = () => {
               <TabsTrigger value="deleteAccount">Delete Account</TabsTrigger>
             </TabsList>
 
-            <UpdateAccountTab />
-            <ChangePasswordTab />
-            <DeleteAccountTab />
+            <UpdateAccountTab setIsSubmittingForm={setIsSubmittingForm} />
+            <ChangePasswordTab setIsSubmittingForm={setIsSubmittingForm} />
+            <DeleteAccountTab setIsSubmittingForm={setIsSubmittingForm} />
           </Tabs>
 
           <DialogFooter>
-            <Button form={activeTab} type="submit">
+            <Button form={activeTab} disabled={isSubmittingForm} type="submit">
               Save changes
             </Button>
           </DialogFooter>
