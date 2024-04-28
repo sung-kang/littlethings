@@ -16,9 +16,9 @@ const NavBar = () => {
   const [activeAccordionItem, setActiveAccordionItem] = useState('item-1');
 
   const activeAccordionContentStyle =
-    'text-lg text-center bg-lt-purple-2 text-white rounded-xl py-2 hover:bg-lt-purple-1';
+    'text-lg text-center rounded-xl py-2 bg-lt-green-2';
   const inactiveAccordionContentStyle =
-    'text-lg text-center text-lt-purple-2 hover:text-lt-purple-1 py-2 hover:underline';
+    'text-lg text-center py-2 rounded-xl bg-primary-foreground hover:underline';
 
   useEffect(() => {
     switch (location.pathname) {
@@ -34,7 +34,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen gap-2 rounded-xl shadow-md bg-gray-100 w-64">
+    <div className="flex flex-col h-screen gap-2 rounded-xl shadow-md w-64 bg-accent">
       <NavBarLogo />
       <NavBarProfile />
       <Accordion
@@ -45,7 +45,7 @@ const NavBar = () => {
       >
         {navBarAccordionData?.map((item, idx) => (
           <AccordionItem key={item.accordionItem} value={`item-${idx + 1}`}>
-            <AccordionTrigger className="text-lt-blue-1 text-2xl bg-white font-bold px-4 rounded-xl">
+            <AccordionTrigger className="text-2xl bg-primary-foreground font-bold px-4 rounded-xl">
               {item.accordionItem}
             </AccordionTrigger>
             {item.accordionItemContent.map((content) => (

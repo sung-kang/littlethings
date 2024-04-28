@@ -24,13 +24,10 @@ const NavBarProfile = () => {
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   return (
-    <div className="bg-white px-6 py-4 shadow-md flex flex-col items-center justify-center w-64 min-h-[10rem] rounded-xl">
+    <div className="px-6 py-4 shadow-md flex flex-col items-center justify-center w-64 min-h-[10rem] rounded-xl bg-primary-foreground">
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="text-lt-purple-2 text-lg hover:text-lt-purple-1 hover:underline"
-          >
+          <Button variant="outline" className="text-lg hover:underline">
             {`${user.firstName} ${user.lastName}`}
             <GearIcon className="ml-1" />
           </Button>
@@ -60,15 +57,25 @@ const NavBarProfile = () => {
           </Tabs>
 
           <DialogFooter>
-            <Button form={activeTab} disabled={isSubmittingForm} type="submit">
-              Save changes
+            <Button
+              form={activeTab}
+              disabled={isSubmittingForm}
+              variant={'destructive'}
+              type="submit"
+              className={
+                activeTab === 'deleteAccount'
+                  ? ''
+                  : 'bg-lt-green-3 hover:bg-lt-green-2 text-white'
+              }
+            >
+              {activeTab === 'deleteAccount'
+                ? 'Delete Account'
+                : 'Save Changes'}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <p className="px-4 py-2 text-xs text-lt-purple-1 rounded-md underline">
-        {user.email}
-      </p>
+      <p className="px-4 py-2 text-xs rounded-md underline">{user.email}</p>
     </div>
   );
 };

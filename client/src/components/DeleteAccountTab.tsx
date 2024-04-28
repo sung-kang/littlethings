@@ -65,7 +65,7 @@ const DeleteAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
             <CardDescription>
               Delete your account here.&nbsp;
               <br />
-              <span className="text-red-500 font-semibold">
+              <span className="text-red-400 font-semibold">
                 This action is irreversible.
               </span>
             </CardDescription>
@@ -91,7 +91,7 @@ const DeleteAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.password.message}
                 </p>
               )}

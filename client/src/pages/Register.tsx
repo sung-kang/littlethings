@@ -42,7 +42,7 @@ const Register = () => {
             People illustrations by Storyset
           </a>
         </div>
-        <div className="flex flex-col justify-center items-center w-1/2 bg-blue-glass/20 backdrop-blur-sm border border-blue-200 rounded-lg p-4 shadow-lg text-black">
+        <div className="flex flex-col justify-center items-center w-1/2 bg-blue-glass/20 backdrop-blur-sm border border-blue-200 rounded-lg p-4 shadow-lg">
           <div className="flex flex-col justify-center items-center gap-5">
             <div className="text-[#aaf0c1] text-3xl font-semibold mb-3">
               LITTLE THINGS
@@ -66,7 +66,7 @@ const Register = () => {
                 })}
               />
               {errors.firstName && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.firstName.message}
                 </p>
               )}
@@ -85,7 +85,7 @@ const Register = () => {
                 })}
               />
               {errors.lastName && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.lastName.message}
                 </p>
               )}
@@ -108,7 +108,7 @@ const Register = () => {
                 })}
               />
               {errors.email && (
-                <p className="text-red-500 text-xs">{errors.email.message}</p>
+                <p className="text-red-400 text-xs">{errors.email.message}</p>
               )}
 
               <Input
@@ -129,7 +129,7 @@ const Register = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.password.message}
                 </p>
               )}
@@ -149,13 +149,13 @@ const Register = () => {
                 })}
               />
               {errors.confirmPassword && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.confirmPassword.message}
                 </p>
               )}
 
               {/* {error?.map((err, idx) => (
-                <div key={idx} className="mt-1 text-red-500 text-xs">
+                <div key={idx} className="mt-1 text-red-400 text-xs">
                   {err.message}
                 </div>
               ))} */}
@@ -163,14 +163,14 @@ const Register = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="text-[#aaf0c1] w-full h-10"
+                className="w-full h-10"
                 variant="default"
               >
                 Create Account
               </Button>
             </form>
             <Button
-              className="text-[#aaf0c1] w-full h-10"
+              className="w-full h-10"
               variant="default"
               onClick={() => navigate('/')}
             >
