@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 type ChangePasswordFormFields = {
   currentPassword: string;
   newPassword: string;
@@ -14,8 +16,13 @@ type UpdateAccountFormFields = {
   email: string;
 };
 
+type NavBarProfileTabProps = {
+  setIsSubmittingForm: Dispatch<SetStateAction<boolean>>;
+};
+
 export type {
   ChangePasswordFormFields,
   DeleteAccountFormFields,
   UpdateAccountFormFields,
+  NavBarProfileTabProps,
 };

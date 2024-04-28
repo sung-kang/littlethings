@@ -10,10 +10,14 @@ import { useToast } from '@/components/ui/use-toast';
 import { TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChangePasswordFormFields } from '@/types/AccountFormFieldTypes';
+import {
+  ChangePasswordFormFields,
+  NavBarProfileTabProps,
+} from '@/types/AccountFormFieldTypes';
 import { ApiErrorType } from '@/types/Common';
+import * as usersApi from '@/api-client/usersApi';
 
-const ChangePasswordTab = () => {
+const ChangePasswordTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
   const { toast } = useToast();
   const {
     register,
@@ -23,21 +27,15 @@ const ChangePasswordTab = () => {
   } = useForm<ChangePasswordFormFields>();
 
   const onSubmit = async (data: ChangePasswordFormFields) => {
+    setIsSubmittingForm(true);
+
     try {
-      const response = await fetch('/api/v1/users/change-password', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const updatedUserData = await usersApi.changePassword(data);
 
-      const updatedUserData = await response.json();
-
-      if (!response.ok) {
+      if (updatedUserData.errors) {
         return updatedUserData.errors.map((error: ApiErrorType) =>
           toast({
+            variant: 'destructive',
             title: error.message,
           })
         );
@@ -48,6 +46,8 @@ const ChangePasswordTab = () => {
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsSubmittingForm(false);
     }
   };
 

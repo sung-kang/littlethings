@@ -11,10 +11,14 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import useAuthContext from '@/hooks/useAuthContext';
-import { UpdateAccountFormFields } from '@/types/AccountFormFieldTypes';
+import {
+  UpdateAccountFormFields,
+  NavBarProfileTabProps,
+} from '@/types/AccountFormFieldTypes';
 import { ApiErrorType } from '@/types/Common';
+import * as usersApi from '@/api-client/usersApi';
 
-const UpdateAccountTab = () => {
+const UpdateAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
   const { user, setUser } = useAuthContext();
   const { toast } = useToast();
   const {
@@ -24,21 +28,15 @@ const UpdateAccountTab = () => {
   } = useForm<UpdateAccountFormFields>();
 
   const onSubmit = async (data: UpdateAccountFormFields) => {
+    setIsSubmittingForm(true);
+
     try {
-      const response = await fetch('/api/v1/users/update-user', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const updatedUserData = await usersApi.updateAccount(data);
 
-      const updatedUserData = await response.json();
-
-      if (!response.ok) {
+      if (updatedUserData.errors) {
         return updatedUserData.errors.map((error: ApiErrorType) =>
           toast({
+            variant: 'destructive',
             title: error.message,
           })
         );
@@ -50,7 +48,9 @@ const UpdateAccountTab = () => {
         title: 'Successfully updated account information!',
       });
     } catch (error) {
-      console.error(error);
+      console.error(errors);
+    } finally {
+      setIsSubmittingForm(false);
     }
   };
 
