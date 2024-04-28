@@ -38,7 +38,7 @@ const Login = () => {
             People illustrations by Storyset
           </a>
         </div>
-        <div className="flex flex-col justify-center items-center w-1/2 bg-blue-glass/20 backdrop-blur-sm border border-blue-200 rounded-lg p-4 shadow-lg text-black">
+        <div className="flex flex-col justify-center items-center w-1/2 bg-blue-glass/20 backdrop-blur-sm border border-blue-200 rounded-lg p-4 shadow-lg">
           <div className="flex flex-col justify-center items-center gap-5">
             <div className="text-[#aaf0c1] text-3xl font-semibold mb-3">
               LITTLE THINGS
@@ -101,7 +101,7 @@ const Login = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="text-[#aaf0c1] w-full h-10"
+                className="w-full h-10"
                 variant="default"
               >
                 Log In
@@ -109,7 +109,7 @@ const Login = () => {
             </form>
 
             <Button
-              className="text-[#aaf0c1] w-full h-10"
+              className="w-full h-10"
               variant="default"
               onClick={() => navigate('/register')}
             >

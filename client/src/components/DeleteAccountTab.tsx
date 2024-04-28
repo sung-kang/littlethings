@@ -11,11 +11,15 @@ import { useToast } from '@/components/ui/use-toast';
 import { TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DeleteAccountFormFields } from '@/types/AccountFormFieldTypes';
+import {
+  DeleteAccountFormFields,
+  NavBarProfileTabProps,
+} from '@/types/AccountFormFieldTypes';
 import { ApiErrorType } from '@/types/Common';
 import useAuthContext from '@/hooks/useAuthContext';
+import * as usersApi from '@/api-client/usersApi';
 
-const DeleteAccountTab = () => {
+const DeleteAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
   const { logoutUser } = useAuthContext();
   const { toast } = useToast();
   const {
@@ -26,23 +30,15 @@ const DeleteAccountTab = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: DeleteAccountFormFields) => {
+    setIsSubmittingForm(true);
+
     try {
-      const response = await fetch('/api/v1/users/delete-user', {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const updatedUserData = await usersApi.deleteAccount(data);
 
-      const updatedUserData = await response.json();
-
-      console.log('updatedUserData', updatedUserData);
-
-      if (!response.ok) {
+      if (updatedUserData.errors) {
         return updatedUserData.errors.map((error: ApiErrorType) =>
           toast({
+            variant: 'destructive',
             title: error.message,
           })
         );
@@ -50,8 +46,13 @@ const DeleteAccountTab = () => {
 
       logoutUser();
       navigate('/');
+      toast({
+        title: 'Successfully deleted account!',
+      });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsSubmittingForm(false);
     }
   };
 
@@ -64,7 +65,7 @@ const DeleteAccountTab = () => {
             <CardDescription>
               Delete your account here.&nbsp;
               <br />
-              <span className="text-red-500 font-semibold">
+              <span className="text-red-400 font-semibold">
                 This action is irreversible.
               </span>
             </CardDescription>
@@ -90,7 +91,7 @@ const DeleteAccountTab = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.password.message}
                 </p>
               )}
