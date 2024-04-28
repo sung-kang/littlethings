@@ -7,7 +7,8 @@ const Logout = () => {
   return (
     <Button
       onClick={logoutUser}
-      className="bg-red-500 w-64 min-h-[2rem] hover:bg-red-300"
+      variant={'destructive'}
+      className="w-64 min-h-[2rem]"
     >
       Log Out
     </Button>

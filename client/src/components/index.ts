@@ -6,6 +6,7 @@ import NavBar from '@/components/NavBar';
 import NavBarLogo from '@/components/NavBarLogo';
 import NavBarProfile from '@/components/NavBarProfile';
 import NewLittleThingForm from '@/components/NewLittleThingForm';
+import ToggleTheme from '@/components/ToggleTheme';
 import UpdateAccountTab from '@/components/UpdateAccountTab';
 
 export {
@@ -17,5 +18,6 @@ export {
   NavBarLogo,
   NavBarProfile,
   NewLittleThingForm,
+  ToggleTheme,
   UpdateAccountTab,
 };

@@ -82,7 +82,7 @@ const UpdateAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.firstName && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.firstName.message}
                 </p>
               )}
@@ -104,7 +104,7 @@ const UpdateAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.lastName && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.lastName.message}
                 </p>
               )}
@@ -130,7 +130,7 @@ const UpdateAccountTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.email && (
-                <p className="text-red-500 text-xs">{errors.email.message}</p>
+                <p className="text-red-400 text-xs">{errors.email.message}</p>
               )}
             </div>
           </CardContent>

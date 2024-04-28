@@ -80,7 +80,7 @@ const ChangePasswordTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.currentPassword && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.currentPassword.message}
                 </p>
               )}
@@ -105,7 +105,7 @@ const ChangePasswordTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.newPassword && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.newPassword.message}
                 </p>
               )}
@@ -127,7 +127,7 @@ const ChangePasswordTab = ({ setIsSubmittingForm }: NavBarProfileTabProps) => {
                 })}
               />
               {errors.confirmNewPassword && (
-                <p className="text-red-500 text-xs">
+                <p className="text-red-400 text-xs">
                   {errors.confirmNewPassword.message}
                 </p>
               )}
