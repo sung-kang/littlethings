@@ -5,6 +5,7 @@ import {
   getAllLittleThingsByUserId,
   updateLittleThingsPostById,
   deleteLittleThingsById,
+  updateCompletionCount,
 } from './littlethingsServices';
 import { BadRequestError } from '../../errors';
 
@@ -34,6 +35,15 @@ const updatePost = tryCatch(async (req: Request, res: Response) => {
   res.status(200).json({ message: updatedData });
 });
 
+const patchCompletionCount = tryCatch(async (req: Request, res: Response) => {
+  const updatedCompletionCount = await updateCompletionCount(
+    req.session.userId!,
+    req.params.id
+  );
+
+  res.status(200).json({ message: updatedCompletionCount });
+});
+
 const deletePost = tryCatch(async (req: Request, res: Response) => {
   const deletedPostId = await deleteLittleThingsById(
     req.session.userId!,
@@ -43,4 +53,10 @@ const deletePost = tryCatch(async (req: Request, res: Response) => {
   res.status(200).json({ message: deletedPostId });
 });
 
-export { getAllPosts, createPost, updatePost, deletePost };
+export {
+  getAllPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  patchCompletionCount,
+};
