@@ -11,6 +11,7 @@ import {
   createPost,
   updatePost,
   deletePost,
+  patchCompletionCount,
 } from './littlethingsControllers';
 
 const router = express.Router();
@@ -37,6 +38,13 @@ router.post('/create-post', validate(createPostValidation), createPost);
  * Access:        Private
  */
 router.post('/:id', validate(updatePostValidation), updatePost);
+
+/**
+ * Route:         PATCH /api/v1/littlethings/patch-completion-count/:id
+ * Description:   Increments completion count by 1 for the littlethings post
+ * Access:        Private
+ */
+router.patch('/count/:id', patchCompletionCount);
 
 /**
  * Route:         DELETE /api/v1/littlethings/:id

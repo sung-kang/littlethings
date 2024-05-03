@@ -40,6 +40,7 @@ const HomePage = () => {
                 setPosts={setPosts}
                 key={post.id}
                 postId={post.id}
+                completionCount={post.completionCount}
                 littlething={post.littlething}
                 description={post.description}
                 frequency={post.frequency}

@@ -14,15 +14,29 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
+import { Frequency } from '@/types/LittleThingTypes';
+
+interface PostForm {
+  littlething: string;
+  occurrence: number;
+  frequency: Frequency;
+  description: string;
+  completion: number;
+  user_id: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+  completionCount: number;
+}
 
 interface FormComponentProps {
   setPosts: Dispatch<SetStateAction<Post[]>>;
 }
 
 const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
-  const { register, handleSubmit } = useForm<Post>();
+  const { register, handleSubmit } = useForm<PostForm>();
 
-  const createPostHandler = async (postData: Post) => {
+  const createPostHandler = async (postData: PostForm) => {
     const data = await littlethingsApi.createPost(postData);
     setPosts((posts) => [...posts, { ...data.message }]);
   };

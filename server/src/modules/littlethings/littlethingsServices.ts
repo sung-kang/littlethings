@@ -1,7 +1,12 @@
 import { db } from '../../db/index';
 import { InferInsertModel, eq, and } from 'drizzle-orm';
 import { littlethings } from '../../db/schema';
-import { InternalError, NotFoundError, UnauthorizedError } from '../../errors';
+import {
+  BadRequestError,
+  InternalError,
+  NotFoundError,
+  UnauthorizedError,
+} from '../../errors';
 
 const createLittleThings = async (
   userId: string,
@@ -115,9 +120,38 @@ const deleteLittleThingsById = async (userId: string, id: string) => {
   return deletedPostId[0].id;
 };
 
+const updateCompletionCount = async (userId: string, id: string) => {
+  const postExists = await db.query.littlethings.findFirst({
+    where: (littlethings, { eq }) => eq(littlethings.id, id),
+  });
+
+  if (!postExists) {
+    throw new NotFoundError(
+      'Cannot find the post or the post is already deleted'
+    );
+  }
+
+  if (postExists.completionCount === postExists.occurrence) {
+    throw new BadRequestError('Maximum completions reached!');
+  }
+
+  if (postExists.user_id !== userId) {
+    throw new UnauthorizedError('Not authorized to delete this post', 403);
+  }
+
+  const incrementCompletion = await db
+    .update(littlethings)
+    .set({ completionCount: postExists.completionCount + 1 })
+    .where(eq(littlethings.id, id))
+    .returning();
+
+  return incrementCompletion[0].completionCount;
+};
+
 export {
   createLittleThings,
   getAllLittleThingsByUserId,
   updateLittleThingsPostById,
   deleteLittleThingsById,
+  updateCompletionCount,
 };
