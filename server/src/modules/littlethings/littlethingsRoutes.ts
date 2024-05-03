@@ -40,7 +40,7 @@ router.post('/create-post', validate(createPostValidation), createPost);
 router.post('/:id', validate(updatePostValidation), updatePost);
 
 /**
- * Route:         PATCH /api/v1/littlethings/patch-completion-count/:id
+ * Route:         PATCH /api/v1/littlethings/count/:id
  * Description:   Increments completion count by 1 for the littlethings post
  * Access:        Private
  */
