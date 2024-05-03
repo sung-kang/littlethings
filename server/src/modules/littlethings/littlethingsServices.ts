@@ -125,8 +125,6 @@ const updateCompletionCount = async (userId: string, id: string) => {
     where: (littlethings, { eq }) => eq(littlethings.id, id),
   });
 
-  console.log(postExists);
-
   if (!postExists) {
     throw new NotFoundError(
       'Cannot find the post or the post is already deleted'

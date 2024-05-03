@@ -14,7 +14,7 @@ interface Post {
   occurrence: number;
   createdAt: string;
   updatedAt: string;
-  completionCount: number | undefined;
+  completionCount: number;
 }
 
 const createPost = async (data: Post) => {
@@ -78,15 +78,12 @@ const getAllPosts = async () => {
 
 const patchCompletionCount = async (postId: string) => {
   try {
-    const response = await fetch(
-      `/api/v1/littlethings/patch-completion-count/${postId}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`/api/v1/littlethings/count/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (!response.ok) {
       throw new Error('Failed to update completion count');
     }

@@ -44,7 +44,7 @@ router.post('/:id', validate(updatePostValidation), updatePost);
  * Description:   Increments completion count by 1 for the littlethings post
  * Access:        Private
  */
-router.patch('/patch-completion-count/:id', patchCompletionCount);
+router.patch('/count/:id', patchCompletionCount);
 
 /**
  * Route:         DELETE /api/v1/littlethings/:id

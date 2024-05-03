@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/hover-card';
 import clsx from 'clsx';
 import * as littlethingsApi from '@/api-client/littlethingsApi';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import { Frequency, TimeOptions } from '@/types/LittleThingTypes';
 import { Post } from '@/types/LittleThingTypes';
 import { useToast } from '@/components/ui/use-toast';
@@ -38,6 +38,9 @@ const LittleThingCard = ({
   completionCount,
   posts,
 }: CardComponentProps) => {
+  const remainingOccurences = useMemo(() => {
+    return occurrence - (completionCount ?? 0);
+  }, [occurrence, completionCount]);
   //still debating if we allow more completions that occurences or not...because we dont want them to spam the database with that many clicks, but what if they wanna do more completions...idk
   // const completionCountHandler = async (postId: string) => {
   //   const success = await littlethingsApi.patchCompletionCount(postId);
@@ -243,7 +246,7 @@ const LittleThingCard = ({
                     </span>
                     <span className="inline-flex items-center mr-2">
                       {Array.from({
-                        length: occurrence - (completionCount ?? 0),
+                        length: remainingOccurences,
                       }).map((_, idx) => (
                         <span
                           key={idx}
