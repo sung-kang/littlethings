@@ -11,19 +11,19 @@ import { Post } from '@/types/LittleThingTypes';
 import { useToast } from '@/components/ui/use-toast';
 
 interface CardComponentProps {
+  key: string;
+  posts: Post[];
   setPosts: Dispatch<SetStateAction<Post[]>>;
+  postId: string;
   littlething: string;
   description: string;
   frequency: Frequency;
   occurrence: number;
+  completionCount: number;
   createdAt: string;
-  user_id?: string;
-  updatedAt?: string;
-  key: string;
-  postId: string;
-  posts: Post[];
-  deletable?: boolean;
-  completionCount?: number;
+  deletable: boolean;
+  // user_id?: string;
+  // updatedAt?: string;
 }
 
 const LittleThingCard = ({
@@ -39,7 +39,7 @@ const LittleThingCard = ({
   posts,
 }: CardComponentProps) => {
   const remainingOccurences = useMemo(() => {
-    return occurrence - (completionCount ?? 0);
+    return occurrence - completionCount;
   }, [occurrence, completionCount]);
   //still debating if we allow more completions that occurences or not...because we dont want them to spam the database with that many clicks, but what if they wanna do more completions...idk
   // const completionCountHandler = async (postId: string) => {
@@ -71,10 +71,7 @@ const LittleThingCard = ({
   const completionCountHandler = async (postId: string) => {
     const currentPost = posts.find((post: Post) => post.id === postId);
 
-    if (
-      currentPost &&
-      (currentPost.completionCount ?? 0) < currentPost.occurrence
-    ) {
+    if (currentPost && currentPost.completionCount < currentPost.occurrence) {
       try {
         const success = await littlethingsApi.patchCompletionCount(postId);
         if (success) {
@@ -83,7 +80,7 @@ const LittleThingCard = ({
               if (post.id === postId) {
                 return {
                   ...post,
-                  completionCount: (post.completionCount ?? 0) + 1,
+                  completionCount: post.completionCount + 1,
                 };
               }
               return post;
@@ -235,14 +232,12 @@ const LittleThingCard = ({
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                     Completion Status:
                     <span className="inline-flex items-center ml-2">
-                      {Array.from({ length: completionCount ?? 0 }).map(
-                        (_, idx) => (
-                          <span
-                            key={idx}
-                            className="w-2 h-2 rounded-full bg-green-500 mr-2"
-                          ></span>
-                        )
-                      )}
+                      {Array.from({ length: completionCount }).map((_, idx) => (
+                        <span
+                          key={idx}
+                          className="w-2 h-2 rounded-full bg-green-500 mr-2"
+                        ></span>
+                      ))}
                     </span>
                     <span className="inline-flex items-center mr-2">
                       {Array.from({

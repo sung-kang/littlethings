@@ -36,15 +36,15 @@ const HomePage = () => {
           <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 p-10 ">
             {posts.map((post) => (
               <LittleThingCard
+                key={post.id}
                 posts={posts}
                 setPosts={setPosts}
-                key={post.id}
                 postId={post.id}
-                completionCount={post.completionCount}
                 littlething={post.littlething}
                 description={post.description}
                 frequency={post.frequency}
                 occurrence={post.occurrence}
+                completionCount={post.completionCount}
                 createdAt={post.createdAt}
                 deletable={deletable}
               />

@@ -13,7 +13,7 @@ export enum Frequency {
 }
 
 export interface Post {
-  completionCount: number | undefined;
+  completionCount: number;
   id: string;
   user_id: string;
   description: string;
