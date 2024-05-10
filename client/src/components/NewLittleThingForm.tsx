@@ -43,14 +43,11 @@ const NewLittleThingForm = ({ setPosts }: FormComponentProps) => {
 
   return (
     <Dialog>
-      <div className="relative">
-        <DialogTrigger asChild>
-          <div className="absolute top-0 right-0 m-4 z-50">
-            <button className="text-4xl text-gray-800">+</button>
-          </div>
-        </DialogTrigger>
-      </div>
-
+      <DialogTrigger asChild>
+        <button className="flex justify-center items-center w-[36px] h-[36px] ml-2 text-4xl rounded-md border border-input hover:text-lt-green-3">
+          +
+        </button>
+      </DialogTrigger>
       <DialogContent className=" sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Littlething</DialogTitle>
