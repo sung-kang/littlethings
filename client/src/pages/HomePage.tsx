@@ -32,15 +32,8 @@ const HomePage = () => {
             {posts.map((post) => (
               <LittleThingCard
                 key={post.id}
-                posts={posts}
+                post={post}
                 setPosts={setPosts}
-                postId={post.id}
-                littlething={post.littlething}
-                description={post.description}
-                frequency={post.frequency}
-                occurrence={post.occurrence}
-                completionCount={post.completionCount}
-                createdAt={post.createdAt}
                 deletable={deletable}
               />
             ))}

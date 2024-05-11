@@ -131,8 +131,17 @@ const updateCompletionCount = async (userId: string, id: string) => {
     );
   }
 
+  const frequencyErrorMessage = {
+    Daily: 'day',
+    Weekly: 'week',
+    Monthly: 'month',
+    Yearly: 'year',
+  };
+
   if (postExists.completionCount === postExists.occurrence) {
-    throw new BadRequestError('Maximum completions reached!');
+    throw new BadRequestError(
+      `Maximum completions reached for the ${frequencyErrorMessage[postExists.frequency]}!`
+    );
   }
 
   if (postExists.user_id !== userId) {
