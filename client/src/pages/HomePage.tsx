@@ -26,26 +26,15 @@ const HomePage = () => {
         deletable={deletable}
         setDeletable={setDeletable}
       />
-      <div className="relative">
-        <div className="flex justify-center items-center">
-          <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-10 p-10 ">
-            {posts.map((post) => (
-              <LittleThingCard
-                key={post.id}
-                posts={posts}
-                setPosts={setPosts}
-                postId={post.id}
-                littlething={post.littlething}
-                description={post.description}
-                frequency={post.frequency}
-                occurrence={post.occurrence}
-                completionCount={post.completionCount}
-                createdAt={post.createdAt}
-                deletable={deletable}
-              />
-            ))}
-          </div>
-        </div>
+      <div className="flex flex-wrap justify-center gap-10 p-10">
+        {posts.map((post) => (
+          <LittleThingCard
+            key={post.id}
+            post={post}
+            setPosts={setPosts}
+            deletable={deletable}
+          />
+        ))}
       </div>
     </>
   );

@@ -57,16 +57,14 @@ export function SortLittleThingsSelect({
         <SelectGroup>
           <SelectLabel>Sort LittleThings By:</SelectLabel>
           <SelectItem value="frequency-ascending">
-            Sort By Frequency (Ascending)
+            Frequency (Ascending)
           </SelectItem>
           <SelectItem value="frequency-descending">
-            Sort By Frequency (Descending)
+            Frequency (Descending)
           </SelectItem>
-          <SelectItem value="urgency-ascending">
-            Sort By Urgency (Ascending)
-          </SelectItem>
+          <SelectItem value="urgency-ascending">Urgency (Ascending)</SelectItem>
           <SelectItem value="urgency-descending">
-            Sort By Urgency (Descending)
+            Urgency (Descending)
           </SelectItem>
         </SelectGroup>
       </SelectContent>

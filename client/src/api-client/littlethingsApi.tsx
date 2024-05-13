@@ -20,9 +20,6 @@ interface Post {
 const createPost = async (data: Post) => {
   try {
     const { description, littlething, occurrence, frequency } = data;
-    console.log('Form Data: ', data);
-
-    console.log(data);
 
     const response = await fetch('/api/v1/littlethings/create-post', {
       method: 'POST',
@@ -52,10 +49,19 @@ const deletePost = async (postId: string) => {
         'Content-Type': 'application/json',
       },
     });
-    if (!response.ok) {
-      throw new Error('Failed to delete selected post');
+
+    if (response.status === 500) {
+      return {
+        errors: [
+          {
+            message:
+              'Something went wrong on our side. Please try again later.',
+          },
+        ],
+      };
     }
-    return true;
+
+    return await response.json();
   } catch (error) {
     console.error('Error deleting post', error);
   }
@@ -84,10 +90,19 @@ const patchCompletionCount = async (postId: string) => {
         'Content-Type': 'application/json',
       },
     });
-    if (!response.ok) {
-      throw new Error('Failed to update completion count');
+
+    if (response.status === 500) {
+      return {
+        errors: [
+          {
+            message:
+              'Something went wrong on our side. Please try again later.',
+          },
+        ],
+      };
     }
-    return true;
+
+    return await response.json();
   } catch (error) {
     console.error('Error updating completion count', error);
   }
